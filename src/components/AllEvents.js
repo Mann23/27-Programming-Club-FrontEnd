@@ -1,27 +1,43 @@
+import React from 'react';
 import Event from './Event';
+import {Grid} from '@material-ui/core/';
 
 
-// past contest = no button to participate // ongoing contest = text = ongoing // future should have button
-
-// above is part of timetable not participate -  i plan to merge them
-
-//if already participated then 2 option = block button or on request say that already exist
-
-
-//if participatio req success then show some modal as of success
-const AllEvents = () => {
-
-   const events = () => {
-
+export default function AllEvents() {
+  const events = [
+   {
+      name:"quiz",
+      time:"today",
+      notexpired:true
+   },
+   {
+      name:"quiz",
+      time:"tomorrow",
+      notexpired:true
+   },
+   {
+      name:"quiz",
+      time:"yesterday",
+      notexpired:false
    }
+]
 
-   return ( 
-      <div>
+
+  return (
+    <Grid
+    container
+    direction="column"
+    alignItems="center"
+    alignContent="center"
+    >
+
       {
          events.map( (event) => <Event event={event} /> )
       }
-      </div>
-   );
+
+    </Grid>
+  );
 }
 
-export default AllEvents;
+
+// past contest = no button to participate // ongoing contest = text = ongoing // future should have button
