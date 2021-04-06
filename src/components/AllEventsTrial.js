@@ -1,16 +1,12 @@
 import React from 'react';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import { Eventcalendar, getJson, toast } from '@mobiscroll/react';
-
+import events from '../data/events';
 function AllEvents() {
 
-    const [myEvents, setEvents] = React.useState([]);
+    const [myEvents] = React.useState(events);
 
-    React.useEffect(() => {
-        getJson('https://trial.mobiscroll.com/events/?vers=5', (events) => {
-            setEvents(events);
-        }, 'jsonp');
-    }, []);
+
     
     const onEventClick = React.useCallback((event) => {
         toast({
