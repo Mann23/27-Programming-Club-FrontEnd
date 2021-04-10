@@ -30,7 +30,6 @@ const ColoredDateCellWrapper = ({children, value}) =>{
 	return React.cloneElement(Children.only(children), {
 		style: {
 			...children.style,
-			backgroundColor: moment(CURRENT_DATE).isSame(value,'month') ? 'lightgreen' : 'blue',
 		},
 	});
 }
@@ -48,9 +47,9 @@ const AllEvents = props => (
       style={{ height:'75vh', width:'75vw' , margin:'5vh auto' }}
       views={['month']}
       titleAccessor='title'
-      components={{
-				dateCellWrapper: ColoredDateCellWrapper,
-			}}
+      // components={{
+			// 	dateCellWrapper: ColoredDateCellWrapper,
+			// }}
       onSelectEvent={onSelect}
       popup
       toolbar

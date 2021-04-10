@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-
 .rbc-btn {
   color: inherit;
   font: inherit;
@@ -20,6 +19,7 @@ button.rbc-input::-moz-focus-inner {
   padding: 0; }
 
 .rbc-calendar {
+  font-family: -apple-system,Segoe UI,Roboto,sans-serif;
   box-sizing: border-box;
   height: 100%;
   display: flex;
@@ -43,6 +43,7 @@ button.rbc-input::-moz-focus-inner {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-decoration: none;
   white-space: nowrap; }
 
 .rbc-rtl {
@@ -56,6 +57,7 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-header {
   overflow: hidden;
+  color:#373a3c;
   flex: 1 0 0%;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -63,7 +65,7 @@ button.rbc-input::-moz-focus-inner {
   text-align: center;
   vertical-align: middle;
   font-weight: bold;
-  font-size: 90%;
+  font-size: 100%;
   min-height: 0;
   border-bottom: 1px solid #DDD; }
   .rbc-header + .rbc-header {
@@ -173,13 +175,12 @@ button.rbc-input::-moz-focus-inner {
   border: none;
   box-sizing: border-box;
   box-shadow: none;
-  margin: 0;
+  margin: 0 2px;
   padding: 2px 5px;
-  background-color: #3174ad;
+  background-color: #5ac8fa;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
-  width: 100%;
   text-align: left; }
   .rbc-slot-selecting .rbc-event, .rbc-slot-selecting .rbc-day-slot .rbc-background-event, .rbc-day-slot .rbc-slot-selecting .rbc-background-event {
     cursor: inherit;
@@ -221,17 +222,27 @@ button.rbc-input::-moz-focus-inner {
 .rbc-selected-cell {
   background-color: rgba(0, 0, 0, 0.1); }
 
+  .rbc-show-more:hover
+{
+  background-color: rgba(206, 203, 203, 0.3);
+}
 .rbc-show-more {
-  background-color: rgba(255, 255, 255, 0.3);
+  font-family: -apple-system,Segoe UI,Roboto,sans-serif !important;
+  transition-duration: .25s;
+  color:#424647 !important;
+  padding:3px 2px;
+  margin:2px 4px;
+  border-radius: 5px!important;
+  width: 95%;
   z-index: 4;
-  font-weight: bold;
-  font-size: 85%;
+  font-size: 75%;
   height: auto;
   line-height: normal; }
 
 .rbc-month-view {
   position: relative;
   border: 1px solid #DDD;
+  transition-delay: .5s;
   display: flex;
   flex-direction: column;
   flex: 1 0 0;
@@ -256,6 +267,8 @@ button.rbc-input::-moz-focus-inner {
     border-top: 1px solid #DDD; }
 
 .rbc-date-cell {
+  color: #424647;
+  margin: 2px;
   flex: 1 1 0;
   min-width: 0;
   padding-right: 5px;
@@ -286,7 +299,7 @@ button.rbc-input::-moz-focus-inner {
   z-index: 5;
   border: 1px solid #e5e5e5;
   background-color: #fff;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
   padding: 10px; }
   .rbc-overlay > * + * {
     margin-top: 1px; }
@@ -322,3 +335,39 @@ button.rbc-input::-moz-focus-inner {
   height: 1px;
   background-color: #74ad31;
   pointer-events: none; }
+
+  .rbc-row-segment .rbc-event-content {
+    font-size: 12px;
+    color: #424647;
+    font-weight: 600;
+  }
+.rbc-row-segment .rbc-event{
+  background-color: #ceeffe
+}
+rbc-day-bg::hover .rbc-date-cell a{
+  border-color: #ceeffe;
+  background: #ceeffe;
+  border-radius: 50%;
+  padding: 1px 5px 2px 5px;
+}
+.rbc-overlay .rbc-event {
+  background-color: #fff;
+  color: #424647;
+  font-weight: 600;
+  font-family: -apple-system,Segoe UI,Roboto,sans-serif;
+  padding: 0.6em;
+  border: 1px solid #4246478a;
+}
+.rbc-overlay-header {
+  display:none;
+}
+.rbc-overlay::after {
+  content: " ";
+  position: absolute;
+  right: 44%;
+  top: -15px;
+  border-top: none;
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+  border-bottom: 15px solid #fff;
+}
