@@ -1,14 +1,10 @@
 import AllEvents from './components/AllEvents'
-import Header from './components/Header/Header';
+import Login from './components/Login/Login';
 import './index.css';
 const App = ()=> {
   return (
     <div className='App'>
-      <Header />
-      <div className='Content'>
-        <p>42 is the answer to everything...</p>
-      </div>
-      {/* <Footer /> */}
+      <Login/>
     </div>    
   );
 }
