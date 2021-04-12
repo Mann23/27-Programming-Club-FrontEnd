@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import './create-blog.css'
 import Button from '@material-ui/core/Button';
+import './create-blog.css'
 
 export default class CreateBlog extends React.Component {
 
