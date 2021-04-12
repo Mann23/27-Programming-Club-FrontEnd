@@ -1,23 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import MediaCard from './blog-card.js'
+import Grid from '@material-ui/core/Grid';
+import ViewBlog from './view-blog.js';
+import CreateBlog from './create-blog.js';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" className="Blogs-appbar-title">
+            Blogs
+          </Typography>
+          <div className="Create-blog-btn">
+            <Button color="inherit">Create Blog</Button>
+          </div>
+        </Toolbar>
+      </AppBar>
+
+
+      <Grid
+        container
+        direction="row"
+        justify="space-evenly"
+        alignItems="flex-start">
+        <Grid item xl={3}> <MediaCard /> </Grid>
+        <Grid item xl={3}> <MediaCard /> </Grid>
+        <Grid item xl={3}> <MediaCard /> </Grid>
+        <Grid item xl={3}> <MediaCard /> </Grid>
+      </Grid>
+
+
+      <ViewBlog />
+
+      <CreateBlog />
+
     </div>
   );
 }
