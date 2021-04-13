@@ -24,7 +24,6 @@ const App = ()=> {
           <Switch>  
             <Route path="/events">
               <AllEvents />
-              <AllEventsTrial />
             </Route>
             
             <Route path="/login">
@@ -38,6 +37,7 @@ const App = ()=> {
         </Grid>
       </Grid>
     </Router>
+
 
   </div>
   );
