@@ -21,24 +21,28 @@ import { Link as RouterLink } from "react-router-dom";
 
 const headersData = [
   {
-    label: "Listings",
-    href: "/listings",
+    label: "Create Blog",
+    href: "/blog",
   },
   {
-    label: "Mentors",
-    href: "/mentors",
+    label: "Blogs",
+    href: "/blog",
   },
   {
-    label: "My Account",
-    href: "/account",
+    label: "Events",
+    href: "/events",
+  },
+  {
+    label: "Chat",
+    href: "/chat",
   },
   {
     label: "Log Out",
     href: "/logout",
-  },
+  }
 ];
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: "#400CCC",
     paddingRight: "79px",
@@ -61,11 +65,13 @@ const useStyles = makeStyles(() => ({
   },
   toolbar: {
     display: "flex",
+    flex:1,
     justifyContent: "space-between",
   },
   drawerContainer: {
     padding: "20px 30px",
   },
+  toolbarUncover: theme.mixins.toolbar,
 }));
 
 export default function Header() {
@@ -93,7 +99,7 @@ export default function Header() {
   const displayDesktop = () => {
     return (
       <Toolbar className={toolbar}>
-        {femmecubatorLogo}
+        {Name}
         <div>{getMenuButtons()}</div>
       </Toolbar>
     );
@@ -129,7 +135,7 @@ export default function Header() {
           <div className={drawerContainer}>{getDrawerChoices()}</div>
         </Drawer>
 
-        <div>{femmecubatorLogo}</div>
+        <div>{Name}</div>
       </Toolbar>
     );
   };
@@ -152,9 +158,9 @@ export default function Header() {
     });
   };
 
-  const femmecubatorLogo = (
+  const Name = (
     <Typography variant="h6" component="h1" className={logo}>
-      Femmecubator
+      Programming Club
     </Typography>
   );
 
