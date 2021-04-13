@@ -1,5 +1,7 @@
 import Header from './components/Header/Header'
-import { BrowserRouter as Router,Route} from 'react-router-dom'
+import AllEvents from './components/AllEvents'
+import AllEventsTrial from './components/AllEventsTrial'
+import { BrowserRouter as Router,Route ,Switch} from 'react-router-dom'
 import React, { lazy, Suspense } from 'react'
 import {Grid, makeStyles} from "@material-ui/core"
 // https://www.freecodecamp.org/news/react-router-tutorial/#:~:text=To%20add%20the%20link%20in,link%20if%20it%20is%20active.
@@ -19,7 +21,20 @@ const App = ()=> {
           <div className={toolbarUncover} />
         </Grid>
         <Grid item xs={12}>
-          <div>Random route</div>
+          <Switch>  
+            <Route path="/events">
+              <AllEvents />
+              <AllEventsTrial />
+            </Route>
+            
+            <Route path="/login">
+              {/* <Login /> */}
+            </Route>
+
+            <Route path="/">
+            </Route>
+
+          </Switch>
         </Grid>
       </Grid>
     </Router>
