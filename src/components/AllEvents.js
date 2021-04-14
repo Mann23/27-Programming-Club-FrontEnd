@@ -105,5 +105,4 @@ export default function AllEvents(props){
   </div>
 );
 }
-
 //resource , onselect slot, onselect event , ondoubleclick event ,selcectable ,eventPropGetter, slotPropGetter , components
