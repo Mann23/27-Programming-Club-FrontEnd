@@ -1,7 +1,7 @@
 import Header from './components/Header/Header'
-import AllEvents from './components/AllEvents'
+import AllEvents from './components/TimeTable/AllEvents'
 import Login from './components/Login/Login';
-import AllEventsTrial from './components/AllEventsTrial'
+import AllEventsTrial from './components/TimeTable/AllEventsTrial'
 
 import { BrowserRouter as Router,Route ,Switch} from 'react-router-dom'
 import React, { lazy, Suspense } from 'react'
