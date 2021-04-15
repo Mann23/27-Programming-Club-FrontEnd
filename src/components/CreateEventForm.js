@@ -15,7 +15,8 @@ const initialFValues = {
     eventTitle:'',
     googleLink: '',
     eventType: 'quiz',
-    eventDateTime:  new Date("2022-05-28T12:00:00")
+    eventDateTime:  new Date("2022-05-28T12:00:00"),
+    eventEndTime: new Date("2022-05-28T12:00:00")
 }
 
 
@@ -82,10 +83,17 @@ export default function CreateEventForm(){
                 <Grid>
                     <Controls.DateTimePicker
                         nameDate="eventDate"
-                        labelDate="Event Date"
-                        value={values.eventDate}
+                        labelDate="Event Date "
+                        value={values.eventDateTime}
                         nameTime="eventTime"
                         labelTime="Event Time"
+                    />
+                </Grid>     
+                <Grid>
+                    <Controls.TimePicker
+                        value={values.eventEndTime}
+                        nameTime="eventEndTime"
+                        labelTime="Event End Time"
                     />
                 </Grid>     
                 <Grid item xs={6}>
