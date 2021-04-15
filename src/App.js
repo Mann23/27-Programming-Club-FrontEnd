@@ -1,20 +1,24 @@
+import React, { lazy, Suspense } from 'react'
+import "./App.css";
+import ChatBody from "./components/chatBody/ChatBody";
 import Header from './components/Header/Header'
 import AllEvents from './components/TimeTable/AllEvents'
 import Login from './components/Login/Login';
 import AllEventsTrial from './components/TimeTable/AllEventsTrial'
 
 import { BrowserRouter as Router,Route ,Switch} from 'react-router-dom'
-import React, { lazy, Suspense } from 'react'
 import {Grid, makeStyles} from "@material-ui/core"
 // https://www.freecodecamp.org/news/react-router-tutorial/#:~:text=To%20add%20the%20link%20in,link%20if%20it%20is%20active.
 const useStyles = makeStyles((theme) => ({
   toolbarUncover: theme.mixins.toolbar,
 }));
 
-const App = ()=> {
-  const { toolbarUncover } = useStyles();
+localStorage.setItem('UserID',201801454);
 
+function App() {
+  const {toolbarUncover} = useStyles();
   return (
+
   <div>
     <Router>
       <Grid container direction={"column"}>
@@ -31,7 +35,11 @@ const App = ()=> {
             <Route path="/login">
               <Login />
             </Route>
-
+            <Route path="/chat">
+              <div className="__main">
+                <ChatBody />
+              </div>
+            </Route>
             <Route path="/">
             </Route>
 

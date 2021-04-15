@@ -1,4 +1,4 @@
-// https://medium.com/@tsubasakondo_36683/create-responsive-drawer-menu-with-react-material-ui-617a42764b69 - h
+// https://medium.com/@tsubasakondo_36683/create-responsive-drawer-menu-with-react-material-ui-617a42764b69
 
 // https://medium.com/@habibmahbub/create-appbar-material-ui-responsive-like-bootstrap-1a65e8286d6f
 // https://betterprogramming.pub/making-a-basic-header-responsive-with-materialui-and-react-2198fac923c8
