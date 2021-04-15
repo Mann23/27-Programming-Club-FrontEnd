@@ -1,7 +1,7 @@
 import React, {Children} from 'react';
 // import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './AllEvents.css';
-import events from '../data/events';
+import events from '../../data/events';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
