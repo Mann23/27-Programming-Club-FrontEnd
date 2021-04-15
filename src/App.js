@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 import React, { lazy, Suspense } from 'react'
 import "./App.css";
 import ChatBody from "./components/chatBody/ChatBody";
-=======
-import AllEvents from './components/AllEvents'
-import AllEventsTrial from './components/AllEventsTrial'
->>>>>>> 9704a2c105a9335d1f9cabad30d4a58332fbb762
 import Header from './components/Header/Header'
 import AllEvents from './components/TimeTable/AllEvents'
 import Login from './components/Login/Login';
@@ -51,13 +46,6 @@ function App() {
           </Switch>
         </Grid>
       </Grid>
-<<<<<<< HEAD
-=======
-
-      <AllEvents/>
-
-      <AllEventsTrial/>
->>>>>>> 9704a2c105a9335d1f9cabad30d4a58332fbb762
     </Router>
 
 
