@@ -1,7 +1,7 @@
 import React from 'react';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import { Eventcalendar, getJson, toast } from '@mobiscroll/react';
-import events from '../data/events';
+import events from '../../data/events';
 function AllEvents() {
 
     const [myEvents] = React.useState(events);
