@@ -1,5 +1,5 @@
-import AllEvents from './components/AllEvents'
-import AllEventsTrial from './components/AllEventsTrial'
+import AllEvents from './components/TimeTable/AllEvents'
+
 import Header from './components/Header/Header'
 import { BrowserRouter as Router,Route} from 'react-router-dom'
 import React, { lazy, Suspense } from 'react'
@@ -21,13 +21,9 @@ const App = ()=> {
           <div className={toolbarUncover} />
         </Grid>
         <Grid item xs={12}>
-          <div>Random route</div>
+      <AllEvents/>
         </Grid>
       </Grid>
-
-      <AllEvents/>
-
-      <AllEventsTrial/>
     </Router>
 
   </div>

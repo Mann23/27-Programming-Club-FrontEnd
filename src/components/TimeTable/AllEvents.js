@@ -44,12 +44,16 @@ export default function AllEvents(props){
   const [title, setTitle] = React.useState('');
   const [start, setStart] = React.useState();
   const [end, setEnd] = React.useState();
-
+  const [link, setLink] = React.useState('');
   const [data, setEvent] = React.useState(events);
 
   useEffect(() => {
     async function fetchMyEvents() {
-      let response = await fetch('http://localhost:4000/event')
+      let headers = { 
+                      'authorization':JSON.parse(localStorage.getItem('authorization')),
+                      'Content-Type': 'application/json'
+                    }
+      let response = await fetch('http://localhost:4000/event',{headers})
       response = await response.json()
       response.forEach(event => {
         event.startDate = new Date(event["startDate"])
@@ -65,6 +69,7 @@ export default function AllEvents(props){
 
   const onSelect = (event) =>{
     setTitle(event.title)
+    setLink(event.link)
     setStart(moment(event.start).format("DD MMMM YYYY, hh:mm A"));
     setEnd(moment(event.end).format("DD MMMM YYYY, hh:mm A"))
     setOpen(true);
@@ -75,6 +80,7 @@ export default function AllEvents(props){
     setTitle('')
     setStart('');
     setEnd('')
+    setLink('');
     setOpen(false);
   };
 
@@ -85,7 +91,7 @@ export default function AllEvents(props){
       events={data}
       startAccessor="startDate"
       endAccessor="endDate"
-      style={{ height:'75vh', width:'75vw' , margin:'5vh auto' }}
+      style={{ height:'75vh', width:'75vw' , margin:'4vh auto' }}
       views={['month']}
       titleAccessor='name'
       // components={{
@@ -110,7 +116,7 @@ export default function AllEvents(props){
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=> window.open("someLink", "_blank")} color="primary">
+          <Button onClick={()=> window.open(`https://${link}`, "_blank")} color="primary">
             Join Now
           </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
