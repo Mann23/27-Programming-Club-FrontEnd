@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function BlogCard() {
+export default function BlogCard(prop) {
     const classes = useStyles();
 
     return (
@@ -40,11 +40,10 @@ export default function BlogCard() {
 
                 <CardContent>
                     <Typography gutterBottom variant="h4" component="h5">
-                        Lizard
+                        {prop.titleBlog}
                     </Typography>
                     <Typography variant="body1" color="textSecondary" component="p">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                        across all continents except Antarctica
+                        {prop.abstractBlog}
                     </Typography>
                 </CardContent>
             </CardActionArea>
