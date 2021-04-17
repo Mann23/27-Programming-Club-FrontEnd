@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import MediaCard from './blog-card.js'
 import ViewBlog from './view-blog.js';
 import CreateBlog from './create-blog.js';
+import apidata from '../APIdata/apidata.js'
 
 export default class BlogMain extends React.Component {
     render() {
@@ -40,7 +41,7 @@ export default class BlogMain extends React.Component {
                 <ViewBlog />
 
                 <CreateBlog />
-                
+
             </div>
       );
     }

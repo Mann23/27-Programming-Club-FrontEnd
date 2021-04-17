@@ -1,6 +1,8 @@
 
+let apidata = []
 
-export default [
+// eslint-disable-next-line
+export default apidata = [
     {
       id: 11111,
       title: "Title 1",
