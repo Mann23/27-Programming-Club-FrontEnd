@@ -1,12 +1,12 @@
-import React from 'react' 
-import './App.css';
-import CreateEvent from './components/CreateEvent';
-
+//import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import CreateEvent from './components/CreateEvent'
 function App() {
   return (
-    <>
-   <CreateEvent></CreateEvent>
-   </>
+    <div className="App">
+    <CreateEvent />
+  </div>
   );
 }
 
