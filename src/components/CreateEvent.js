@@ -105,8 +105,8 @@ class CreateEvent extends Component {
             })
         })
 
-
-        this.resetForm()
+        window.location.reload(false); 
+        //this.resetForm()
 		
 	}
     onRadioChange = (e) => {
@@ -218,7 +218,7 @@ class CreateEvent extends Component {
                     </Grid>
                     <Grid align='center'>
                         <Button  size="large" variant="contained" color="primary" onClick={ this.submitHandler} >Submit</Button>
-                        <Button style={{marginLeft:20}} size="large" variant="contained" color="secondary" onClick={ this.resetForm}  >Reset</Button>
+                        <Button style={{marginLeft:20}} size="large" variant="contained" color="secondary" onClick={()=> window.location.reload(false) }  >Reset</Button>
                     </Grid>
 					{/*<button type="submit">Submit</button>
                     <button type="reset" onClick={this.resetForm}>Reset</button>*/}
