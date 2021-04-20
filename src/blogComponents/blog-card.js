@@ -8,6 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import ViewBlog from "./view-blog.js";
 
 const useStyles = makeStyles({
     root: {
@@ -32,6 +33,22 @@ export default function BlogCard(prop) {
         console.log(prop.dummyid);
 
         console.log("learn more button pressed...");
+
+        let putObject = {
+            author: "John Abc",
+            date: "20/4/2021",
+            title: prop.titleBlog,
+            abstract: prop.abstractBlog,
+            content: prop.contentBlog,
+        };
+
+        // <ViewBlog
+        //     author={putObject.author}
+        //     date={putObject.date}
+        //     titleBlog={putObject.title}
+        //     abstractBlog={putObject.abstract}
+        //     contentBlog={putObject.content}
+        // />;
     };
 
     const EditBtnHandler = () => {
@@ -69,6 +86,7 @@ export default function BlogCard(prop) {
             .delete("https://jsonplaceholder.typicode.com/posts/1")
             .then((res) => {
                 console.log(res);
+                console.log("inside reponce promise");
                 // setBlogs(res.data);
             })
             .catch((err) => {

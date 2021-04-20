@@ -16,7 +16,7 @@ export default function BlogMain(prop) {
 
     let userid = localStorage.getItem("userid");
     console.log(userid);
-    let fetchedid = 123456789;
+    let fetchedid = 23456789;
 
     useEffect(() => {
         axios
