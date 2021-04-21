@@ -20,6 +20,9 @@
     "react-router-dom": "^5.2.0",
     "react-google-login": "^5.2.2",
     "react-scripts": "4.0.3",
+    "react-transition-group": "^4.4.1",
+    "@material-ui/core": "^4.11.3",
+    "axios": "^0.21.1",
     "web-vitals": "^1.1.1"
   },
   "scripts": {

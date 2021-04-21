@@ -1,3 +1,5 @@
+import BlogMain from './blogComponents/BlogMain';
+import './index.css';
 import React, { lazy, Suspense } from 'react'
 import "./App.css";
 import ChatBody from "./components/chatBody/ChatBody";
@@ -40,8 +42,13 @@ function App() {
                 <ChatBody />
               </div>
             </Route>
-            <Route path="/">
+            <Route path="/blog">
+              
+      {/* {<BlogMain />} */}
             </Route>
+
+            <Route path="/">
+            <Route />
 
           </Switch>
         </Grid>
