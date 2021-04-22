@@ -1,4 +1,4 @@
-.Chirag {
+.Login__Google {
     
     margin-left: 195px;
     margin-top: 10px;
@@ -9,7 +9,7 @@
   
   }
   
-  .Daksh
+  .Login__Lable
   {
     
     margin-top: 50px;
@@ -17,7 +17,7 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
   
-  .style
+  .Login
   {
     background-color: rgb(233, 225, 215);
     width: 500px;
@@ -25,14 +25,3 @@
     padding: 30px;
     border-radius: 8px;
   }
-  
-  input {
-    border-radius: 100px;
-    padding: 10px 15px;
-    width: 50%;
-    border: 1px solid #D9D9D9;
-    outline: none;
-    display: block;
-    margin: 20px auto 20px auto;
-  }
-  
