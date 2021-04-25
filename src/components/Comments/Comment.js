@@ -59,10 +59,10 @@ const Comment = ({ comments }) => {
                   </>
                 }
               />
+              <IconButton onClick={deleteComment}>
+                  <DeleteIcon color="secondary"/>
+              </IconButton>
             </ListItem>
-                  <IconButton onClick={deleteComment}>
-                     <DeleteIcon color="secondary"/>
-                  </IconButton>
             <Divider />
             
           </React.Fragment>

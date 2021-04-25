@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Comment from "./Comment";
+import './Comment.css';
 
 export default class Comments extends Component {
   state = {
