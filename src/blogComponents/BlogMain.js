@@ -6,8 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import BlogCard from "./blog-card.js";
-import ViewBlog from "./view-blog.js";
-import CreateBlog from "./create-blog.js";
 // import apidata from "../APIdata/apidata.js";
 import axios from "axios";
 
@@ -19,8 +17,12 @@ export default function BlogMain(prop) {
     let fetchedid = 23456789;
 
     useEffect(() => {
+
+        console.log("fetch blogs");
+        
+
         axios
-            .get("https://jsonplaceholder.typicode.com/posts")
+            .get("https://jsonplaceholder.typicode.com/posts/")
             .then((res) => {
                 console.log(res);
                 setBlogs(res.data);
@@ -59,15 +61,13 @@ export default function BlogMain(prop) {
                                 contentBlog={value.body}
                                 uid={userid}
                                 feid={fetchedid}
-                                dummyid={789789}
+                                dummyid={value.id}
+
                             />
                         </Grid>
                     );
                 })}
             </Grid>
-
-            {/* <CreateBlog /> */}
-            <ViewBlog />
         </div>
     );
 }

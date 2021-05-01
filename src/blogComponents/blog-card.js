@@ -8,7 +8,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import ViewBlog from "./view-blog.js";
+import history from '../history';
+
 
 const useStyles = makeStyles({
     root: {
@@ -52,7 +53,7 @@ export default function BlogCard(prop) {
     };
 
     const EditBtnHandler = () => {
-        console.log(prop.dummyid);
+        console.log(prop);
 
         console.log("edit button pressed...");
 
@@ -63,7 +64,9 @@ export default function BlogCard(prop) {
         };
 
         console.log(putObject);
+        history.push('/edit-blog/'+ prop.dummyid);
 
+        window.location.reload(false);
         // axios
         //     .put("https://jsonplaceholder.typicode.com/posts/1", {
         //         ...putObject,

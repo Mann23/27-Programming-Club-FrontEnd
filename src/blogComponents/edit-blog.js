@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./edit-blog.css";
+import history from '../history';
 
-export default function EditBlog() {
-    // const [titleOfBlog, setTitleOfBlog] = useState('')
-    // const [abstractOfBlog, setAbstractOfBlog] = useState('')
-    // const [contentOfBlog, setContentOfBlog] = useState('')
+export default function EditBlog(prop) {
 
     const [blog, setBlog] = useState({
         titleOfBlog: "",
@@ -13,10 +11,30 @@ export default function EditBlog() {
         contentOfBlog: "",
     });
 
+    useEffect(() => {
+        console.log("props>>",prop)
+        const edit_blog_id = prop.match.params.id;
+        console.log("edit_blog_id",edit_blog_id);
+        axios
+            .get("https://jsonplaceholder.typicode.com/posts/"+ edit_blog_id)
+            .then((res) => {
+                console.log(res);
+                setBlog({
+                    titleOfBlog: res.data.title,
+                    abstractOfBlog: "yes",
+                    contentOfBlog: res.data.body,
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    },[]);
+
     const mySubmitHandler = (event) => {
         event.preventDefault();
-        alert('You are submitting "' + blog.titleOfBlog + '" ');
-
+        console.log(event,blog);
+        alert('You are submitting "' + JSON.stringify(blog) + '" ');
+        history.push('/');
         // axios
         //     .post("https://jsonplaceholder.typicode.com/posts", {
         //         // userId: 1,
@@ -80,6 +98,7 @@ export default function EditBlog() {
                             name="titleOfBlog"
                             value={blog.titleOfBlog}
                             onChange={myChangeHandler}
+                            autocomplete="off"
                         />
                     </div>
                 </div>
@@ -93,6 +112,7 @@ export default function EditBlog() {
                             name="abstractOfBlog"
                             value={blog.abstractOfBlog}
                             onChange={myChangeHandler}
+                            autocomplete="off"
                         />
                     </div>
                 </div>
@@ -107,6 +127,7 @@ export default function EditBlog() {
                             value={blog.contentOfBlog}
                             onChange={myChangeHandler}
                             style={{ height: "300px" }}
+                            autocomplete="off"
                         />
                     </div>
                 </div>
