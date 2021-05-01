@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import ChatBody from "./components/chatBody/ChatBody";
+import ChatBody from "./components/chat/chatBody/ChatBody";
 
 localStorage.setItem('UserID',201801454);
 

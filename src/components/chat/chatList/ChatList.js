@@ -1,9 +1,8 @@
-import React, { Component , createRef} from "react";
+import React, { Component } from "react";
 import "./chatList.css";
 import ChatListItems from "./ChatListItems";
 
 export default class ChatList extends Component {
-  messagesEndRef = createRef(null);
   CoreMemberList = [
     {
       UserID: "201801453",

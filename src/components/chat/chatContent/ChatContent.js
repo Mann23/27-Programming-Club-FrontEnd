@@ -1,4 +1,5 @@
 import React, { Component, createRef } from "react";
+import ChatListItems from "../chatList/ChatListItems";
 import "./chatContent.css";
 import ChatItem from "./ChatItem";
 
@@ -18,11 +19,13 @@ export default class ChatContent extends Component {
   ];
 
   constructor(props) {
-    super(props);
+    super(props); 
     this.state = {
       chat: this.chatItms,
       msg: "",
+      changedID: null,
     };
+    this.selectID = this.selectID.bind(this);
   }
 
   scrollToBottom = () => {
@@ -45,6 +48,8 @@ export default class ChatContent extends Component {
       }
     });
     this.scrollToBottom();
+
+    window.addEventListener('storage',e => this.setState({value: localStorage.getItem('Clicked')}))
   }
   onStateChange = (e) => {
     this.setState({ msg: e.target.value });
@@ -63,13 +68,18 @@ export default class ChatContent extends Component {
     }
   }
 
+  selectID = (id) => {
+    this.setState({changedID:id})
+    console.log("hi");
+  }
+
   render() {
     return (
       <div className="main__chatcontent">
         <div className="content__header">
           <div className="blocks">
             <div className="current-chatting-user">
-              <p>{localStorage.getItem("ClickedID")}</p>
+              {this.props.data}
             </div>
           </div>
         </div>
@@ -96,7 +106,7 @@ export default class ChatContent extends Component {
               onChange={this.onStateChange}
               value={this.state.msg}
             />
-            <button onClick={this.handleclick} className="btnSendMsg" id="sendMsgBtn">
+            <button onClick={this.handleclick} id="sendMsgBtn">
               <i className="fa fa-paper-plane"></i>
             </button>
           </div>
