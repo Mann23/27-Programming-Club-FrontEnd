@@ -50,8 +50,9 @@ export default function AllEvents(props){
   useEffect(() => {
     async function fetchMyEvents() {
       let headers = { 
-                      'authorization':JSON.parse(localStorage.getItem('authorization')),
-                      'Content-Type': 'application/json'
+                      // 'authorization':JSON.parse(localStorage.getItem('authorization')),
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer '+ JSON.parse(localStorage.getItem('authorization'))
                     }
       let response = await fetch('http://localhost:4000/event',{headers})
       response = await response.json()

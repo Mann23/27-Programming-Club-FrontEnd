@@ -1,6 +1,7 @@
 import React from 'react'
 import { TextField ,IconButton,Grid} from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
+import axios from "axios"
 function AddComment() {
    const [comment,setComment] =React.useState("")
 
@@ -12,7 +13,17 @@ function AddComment() {
 
    const resetAndSubmit =() => {
       setComment("")
-      //post request
+      axios
+            .post("https://jsonplaceholder.typicode.com/posts/1/comments", {
+                ...comment,
+            })
+            .then(function (response) {
+                console.log("inside reponce promise");
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
    }
    return (
       <form noValidate autoComplete="off">
