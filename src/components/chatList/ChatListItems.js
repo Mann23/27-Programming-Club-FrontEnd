@@ -13,6 +13,8 @@ export default class ChatListItems extends Component {
       e.currentTarget.parentNode.children[index].classList.remove("active");
     }
     e.currentTarget.classList.add("active");
+
+    this.props.changeId(this.props.UserID)
     localStorage.setItem('ClickedID',this.props.UserID);
   };
 

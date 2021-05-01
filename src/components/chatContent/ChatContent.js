@@ -69,7 +69,7 @@ export default class ChatContent extends Component {
         <div className="content__header">
           <div className="blocks">
             <div className="current-chatting-user" >
-              <p>{localStorage.getItem("ClickedID")}</p>
+              <p>{this.props.ID}</p>
             </div>
           </div>
         </div>

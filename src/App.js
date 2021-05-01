@@ -25,20 +25,22 @@ const useStyles = makeStyles((theme) => ({
 
 const App = ()=> {
   const { toolbarUncover } = useStyles();
-  localStorage.setItem('UserID',201801454);
+  // localStorage.setItem('UserID',"2081");
   return (
   <div>  
       <Grid container direction={"column"} spacing={10}>
-        <Grid item xs={12} >
-          <Header/>
-          <div className={toolbarUncover} />
-        </Grid>
+        {
+            localStorage.getItem('UserID') &&
+            <Grid item xs={12} >
+              <Header/>
+              <div className={toolbarUncover} />
+            </Grid>
+        }
         <Grid item xs={12}>  
           <Switch> 
             
             { localStorage.getItem('UserID') ? ( 
               <>
-              <Route  path="/login" component={Login} />
             <Route  path="/events" component={AllEvents} exact/>
             <Route path="/chat">
               <div className="__main">

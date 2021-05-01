@@ -17,6 +17,7 @@ export default class ChatList extends Component {
   ];
 
   render() {
+    console.log(typeof this.props.setClickedId)
     return (
       <div className="main__chatlist">
         <div className="chatlist__heading">
@@ -27,6 +28,7 @@ export default class ChatList extends Component {
             return (
               <ChatListItems
                 UserID={item.UserID}
+                changeId={this.props.changeId}
               />
             );
           })}

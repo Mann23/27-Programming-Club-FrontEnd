@@ -1,7 +1,7 @@
 import GoogleLogin from 'react-google-login'
 import './Login.css'
 import axios from 'axios';
-
+import history from '../../history'
 const Login = () => {
   const responseGoogle = (Response) => {
    
@@ -15,6 +15,9 @@ const Login = () => {
     }).catch(err => {
       console.log(err)
     })
+
+    history.push('/');
+    window.location.reload(false);
   }
 
   const errorGoogle = (error) => {

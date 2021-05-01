@@ -34,7 +34,7 @@ export default function EditBlog(prop) {
         event.preventDefault();
         console.log(event,blog);
         alert('You are submitting "' + JSON.stringify(blog) + '" ');
-        history.push('/');
+        
 
          axios
             .put("https://jsonplaceholder.typicode.com/posts/1", {
@@ -48,6 +48,7 @@ export default function EditBlog(prop) {
                 console.log(err);
             });
 
+        history.push('/');
         window.location.reload(false);
     };
 
