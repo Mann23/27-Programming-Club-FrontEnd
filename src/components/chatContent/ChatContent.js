@@ -68,7 +68,7 @@ export default class ChatContent extends Component {
       <div className="main__chatcontent">
         <div className="content__header">
           <div className="blocks">
-            <div className="current-chatting-user">
+            <div className="current-chatting-user" >
               <p>{localStorage.getItem("ClickedID")}</p>
             </div>
           </div>

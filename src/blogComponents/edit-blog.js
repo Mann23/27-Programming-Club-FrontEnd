@@ -35,40 +35,20 @@ export default function EditBlog(prop) {
         console.log(event,blog);
         alert('You are submitting "' + JSON.stringify(blog) + '" ');
         history.push('/');
-        // axios
-        //     .post("https://jsonplaceholder.typicode.com/posts", {
-        //         // userId: 1,
-        //         // id: 1000,
-        //         // title: "qwertyuiop",
-        //         // body: "asdfghjkl",
-        //         ...blog,
-        //     })
-        //     .then(function (response) {
-        //         console.log("inside reponce promise");
-        //         console.log(response);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
 
-        //
-        //  let putObject = {
-        //     title: prop.titleBlog,
-        //     abstract: prop.abstractBlog,
-        //     content: prop.contentBlog,
-        // };
-        //
-        // axios
-        //     .put("https://jsonplaceholder.typicode.com/posts/1", {
-        //         ...putObject,
-        //     })
-        //     .then(function (response) {
-        //         console.log("inside reponce promise");
-        //         console.log(response);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
+         axios
+            .put("https://jsonplaceholder.typicode.com/posts/1", {
+                ...blog,
+            })
+            .then(function (response) {
+                console.log("inside reponce promise");
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+        window.location.reload(false);
     };
 
     const myChangeHandler = (event) => {

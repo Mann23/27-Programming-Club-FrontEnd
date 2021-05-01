@@ -3,9 +3,6 @@ import axios from "axios";
 import "./create-blog.css";
 
 export default function CreateBlog() {
-    // const [titleOfBlog, setTitleOfBlog] = useState('')
-    // const [abstractOfBlog, setAbstractOfBlog] = useState('')
-    // const [contentOfBlog, setContentOfBlog] = useState('')
 
     const [blog, setBlog] = useState({
         titleOfBlog: "",

@@ -18,15 +18,16 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import history from '../../history'
 
 const headersData = [
   {
     label: "Create Blog",
-    href: "/blog",
+    href: "/create-blog",
   },
   {
     label: "Blogs",
-    href: "/blog",
+    href: "/",
   },
   {
     label: "Events",
@@ -35,10 +36,6 @@ const headersData = [
   {
     label: "Chat",
     href: "/chat",
-  },
-  {
-    label: "Log Out",
-    href: "/logout",
   }
 ];
 
@@ -96,11 +93,28 @@ export default function Header() {
     window.addEventListener("resize", () => setResponsiveness());
   }, []);
 
+
+  const logout = () => {
+    localStorage.removeItem("UserId")
+    history.push('/'); 
+    window.location.reload(false)
+  }
+
+
   const displayDesktop = () => {
     return (
       <Toolbar className={toolbar}>
         {Name}
-        <div>{getMenuButtons()}</div>
+        <div>{getMenuButtons()}<Button
+          {...{
+            color: "inherit",
+            component: RouterLink,
+            className: menuButton,
+          }}
+          onClick={logout}
+        >
+          {"LogOut"}
+        </Button></div>
       </Toolbar>
     );
   };
@@ -132,7 +146,7 @@ export default function Header() {
             onClose: handleDrawerClose,
           }}
         >
-          <div className={drawerContainer}>{getDrawerChoices()}</div>
+          <div className={drawerContainer}>{getDrawerChoices()}<MenuItem onClick={logout}>{"LogOut"}</MenuItem></div>
         </Drawer>
 
         <div>{Name}</div>

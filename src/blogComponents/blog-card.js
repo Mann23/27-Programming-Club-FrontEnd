@@ -31,57 +31,24 @@ export default function BlogCard(prop) {
     const classes = useStyles();
 
     const ViewBtnHandler = () => {
-        console.log(prop.dummyid);
+        console.log(prop.blogId);
 
-        console.log("learn more button pressed...");
+        history.push('/view-blog/'+ prop.blogId);
 
-        let putObject = {
-            author: "John Abc",
-            date: "20/4/2021",
-            title: prop.titleBlog,
-            abstract: prop.abstractBlog,
-            content: prop.contentBlog,
-        };
-
-        // <ViewBlog
-        //     author={putObject.author}
-        //     date={putObject.date}
-        //     titleBlog={putObject.title}
-        //     abstractBlog={putObject.abstract}
-        //     contentBlog={putObject.content}
-        // />;
+        window.location.reload(false);
     };
 
     const EditBtnHandler = () => {
         console.log(prop);
 
         console.log("edit button pressed...");
-
-        let putObject = {
-            title: prop.titleBlog,
-            abstract: prop.abstractBlog,
-            content: prop.contentBlog,
-        };
-
-        console.log(putObject);
-        history.push('/edit-blog/'+ prop.dummyid);
+        history.push('/edit-blog/'+ prop.blogId);
 
         window.location.reload(false);
-        // axios
-        //     .put("https://jsonplaceholder.typicode.com/posts/1", {
-        //         ...putObject,
-        //     })
-        //     .then(function (response) {
-        //         console.log("inside reponce promise");
-        //         console.log(response);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
     };
 
     const DeleteBtnHandler = () => {
-        console.log(prop.dummyid);
+        console.log(prop.blogId);
 
         console.log("delete button pressed...");
 
@@ -95,9 +62,11 @@ export default function BlogCard(prop) {
             .catch((err) => {
                 console.log(err);
             });
+
+            window.location.reload(false);
     };
 
-    if (prop.uid == prop.feid) {
+    if (prop.uid == prop.authorId) {
         return (
             <Card className={classes.root}>
                 <CardActionArea>

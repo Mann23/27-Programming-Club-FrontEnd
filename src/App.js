@@ -1,4 +1,3 @@
-import CommentsContainer from './components/Comments/CommentsContainer'
 import { BrowserRouter as Router,Route,Switch} from 'react-router-dom'
 import React, { lazy, Suspense } from 'react'
 import {Grid, makeStyles,Container, Typography} from "@material-ui/core"
@@ -9,6 +8,7 @@ import Login from './components/Login/Login';
 import ChatBody from "./components/chatBody/ChatBody";
 import Header from './components/Header/Header'
 import AllEvents from './components/TimeTable/AllEvents'
+import CreateEvent from './components/CreateEvent'
 
 import CreateBlog from "./blogComponents/create-blog.js";
 import ViewBlog from "./blogComponents/view-blog.js";
@@ -38,16 +38,17 @@ const App = ()=> {
             
             { localStorage.getItem('UserID') ? ( 
               <>
-              <Route path="/login" component={Login} exact/>
+              <Route  path="/login" component={Login} />
             <Route  path="/events" component={AllEvents} exact/>
             <Route path="/chat">
               <div className="__main">
                 <ChatBody />
               </div>
             </Route>
-            <Route path="/view-blog" component={ViewBlog} exact/>
+            <Route path="/view-blog/:id" component={ViewBlog} exact/>
             <Route path="/create-blog" component={CreateBlog} exact/>
             <Route path="/edit-blog/:id" component={EditBlog} exact/>
+            <Route path="/create-event" component={CreateEvent} exact/>
             <Route path="/" component={BlogMain} exact/>              
             </>
             ): (<>

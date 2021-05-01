@@ -1,4 +1,3 @@
-import react, { Componet } from 'react'
 import GoogleLogin from 'react-google-login'
 import './Login.css'
 import axios from 'axios';
@@ -10,7 +9,8 @@ const Login = () => {
       email: Response.profileObj.email,
       username: Response.profileObj.username,
     }).then(res => {
-      localStorage.setItem("studentId",Response.profileObj.name)
+      console.log.log(res)
+      localStorage.setItem("UserId",Response.profileObj.name)
       localStorage.setItem('accessToken', res.data.accessToken)
     }).catch(err => {
       console.log(err)

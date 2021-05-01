@@ -17,12 +17,13 @@ export default class ChatListItems extends Component {
   };
 
   render() {
+
+    console.log(this.props);
+
     return (
       <div
         onClick={this.selectChat}
-        className={`chatlist__item ${
-          this.props.active ? this.props.active : ""
-        } `}
+        className={`chatlist__item`}
       >
   
         <div className="userMeta">

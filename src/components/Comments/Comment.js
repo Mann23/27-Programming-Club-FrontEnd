@@ -39,6 +39,8 @@ const deleteComment =(clickedId)=>{
         .catch((err) => {
             console.log(err);
         });
+
+        window.location.reload(false);
 }
 
 

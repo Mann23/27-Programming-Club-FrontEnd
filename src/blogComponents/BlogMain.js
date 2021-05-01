@@ -1,26 +1,17 @@
 import "./BlogMain.css";
 import React, { useState, useEffect } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import BlogCard from "./blog-card.js";
-// import apidata from "../APIdata/apidata.js";
 import axios from "axios";
 
 export default function BlogMain(prop) {
     const [blogs, setBlogs] = useState([]);
 
-    let userid = localStorage.getItem("userid");
-    console.log(userid);
-    let fetchedid = 23456789;
+    let userid = localStorage.getItem("UserID");
 
     useEffect(() => {
 
         console.log("fetch blogs");
-        
-
         axios
             .get("https://jsonplaceholder.typicode.com/posts/")
             .then((res) => {
@@ -34,17 +25,6 @@ export default function BlogMain(prop) {
 
     return (
         <div className="App">
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className="Blogs-appbar-title">
-                        Blogs
-                    </Typography>
-                    <div className="Create-blog-btn">
-                        <Button color="inherit">Create Blog</Button>
-                    </div>
-                </Toolbar>
-            </AppBar>
-
             <Grid
                 container
                 direction="column"
@@ -60,9 +40,8 @@ export default function BlogMain(prop) {
                                 abstractBlog={value.body}
                                 contentBlog={value.body}
                                 uid={userid}
-                                feid={fetchedid}
-                                dummyid={value.id}
-
+                                authorId={userid}
+                                blogId={value.id}
                             />
                         </Grid>
                     );
