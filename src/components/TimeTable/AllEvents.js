@@ -1,4 +1,5 @@
-import React, {Children} from 'react';
+
+import React, {Children , useEffect} from 'react';
 // import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './AllEvents.css';
 import events from '../../data/events';
@@ -45,10 +46,33 @@ export default function AllEvents(props){
   const [title, setTitle] = React.useState('');
   const [start, setStart] = React.useState();
   const [end, setEnd] = React.useState();
+  const [link, setLink] = React.useState('');
+  const [data, setEvent] = React.useState(events);
+
+  useEffect(() => {
+    async function fetchMyEvents() {
+      let headers = { 
+                      // 'authorization':JSON.parse(localStorage.getItem('authorization')),
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer '+ JSON.parse(localStorage.getItem('authorization'))
+                    }
+      let response = await fetch('http://localhost:4000/event',{headers})
+      response = await response.json()
+      response.forEach(event => {
+        event.startDate = new Date(event["startDate"])
+        event.endDate = new Date(event["endDate"])
+      })
+      setEvent([...data,...response]) 
+    }
+
+
+    fetchMyEvents()
+  }, [])
 
 
   const onSelect = (event) =>{
     setTitle(event.title)
+    setLink(event.link)
     setStart(moment(event.start).format("DD MMMM YYYY, hh:mm A"));
     setEnd(moment(event.end).format("DD MMMM YYYY, hh:mm A"))
     setOpen(true);
@@ -59,6 +83,7 @@ export default function AllEvents(props){
     setTitle('')
     setStart('');
     setEnd('')
+    setLink('');
     setOpen(false);
   };
 
@@ -66,12 +91,12 @@ export default function AllEvents(props){
   <div styles ={{styles}}>
     <Calendar
       localizer={localizer}
-      events={events}
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height:'75vh', width:'75vw' , margin:'5vh auto' }}
+      events={data}
+      startAccessor="startDate"
+      endAccessor="endDate"
+      style={{ height:'75vh', width:'75vw' , margin:'4vh auto' }}
       views={['month']}
-      titleAccessor='title'
+      titleAccessor='name'
       // components={{
 			// 	dateCellWrapper: ColoredDateCellWrapper,
 			// }}
@@ -94,7 +119,7 @@ export default function AllEvents(props){
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=> window.open("someLink", "_blank")} color="primary">
+          <Button onClick={()=> window.open(`https://${link}`, "_blank")} color="primary">
             Join Now
           </Button>
           <Button onClick={handleClose} color="primary" autoFocus>

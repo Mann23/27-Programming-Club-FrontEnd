@@ -1,7 +1,7 @@
+import CommentsContainer from './components/Comments/CommentsContainer'
+import { BrowserRouter as Router,Route,Switch} from 'react-router-dom'
 import React, { lazy, Suspense } from 'react'
-import {  Route ,Switch} from 'react-router-dom'
-import {Grid, makeStyles} from "@material-ui/core"
-
+import {Grid, makeStyles,Container, Typography} from "@material-ui/core"
 import './index.css';
 import "./App.css";
 
@@ -23,12 +23,10 @@ const useStyles = makeStyles((theme) => ({
   toolbarUncover: theme.mixins.toolbar,
 }));
 
-localStorage.setItem('UserID',201801454);
-
-function App(){
-  const {toolbarUncover} = useStyles();
+const App = ()=> {
+  const { toolbarUncover } = useStyles();
+  localStorage.setItem('UserID',201801454);
   return (
-
   <div>  
       <Grid container direction={"column"} spacing={10}>
         <Grid item xs={12} >
@@ -50,7 +48,7 @@ function App(){
             <Route path="/view-blog" component={ViewBlog} exact/>
             <Route path="/create-blog" component={CreateBlog} exact/>
             <Route path="/edit-blog/:id" component={EditBlog} exact/>
-            <Route path="/" component={BlogMain} exact/>
+            <Route path="/" component={BlogMain} exact/>              
             </>
             ): (<>
               <Route  path="/" component={Login} />

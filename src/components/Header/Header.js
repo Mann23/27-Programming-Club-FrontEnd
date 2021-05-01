@@ -44,7 +44,7 @@ const headersData = [
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    backgroundColor: "#400CCC",
+    backgroundColor: "primary", //"#400CCC",
     paddingRight: "79px",
     paddingLeft: "118px",
     "@media (max-width: 900px)": {
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     fontFamily: "Work Sans, sans-serif",
     fontWeight: 600,
-    color: "#FFFEFE",
+    color: "secondary",
     textAlign: "left",
   },
   menuButton: {
