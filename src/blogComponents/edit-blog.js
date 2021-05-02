@@ -16,13 +16,18 @@ export default function EditBlog(prop) {
         const edit_blog_id = prop.match.params.id;
         console.log("edit_blog_id",edit_blog_id);
         axios
-            .get("http://localhost:4000/blog/viewblog/"+ edit_blog_id)
+            .get("http://localhost:4000/blog/viewblog/"+ edit_blog_id,
+            {
+                headers:{
+                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
+                }
+            })
             .then((res) => {
                 console.log(res);
                 setBlog({
                     titleOfBlog: res.data.title,
-                    abstractOfBlog: "yes",
-                    contentOfBlog: res.data.body,
+                    abstractOfBlog: res.data.Abstraction,
+                    contentOfBlog: res.data.blog,
                 })
             })
             .catch((err) => {
@@ -48,13 +53,13 @@ export default function EditBlog(prop) {
             .then(function (response) {
                 console.log("inside reponce promise");
                 console.log(response);
+                history.push('/');
+                window.location.reload(false);
             })
             .catch((err) => {
-                console.log(err);
+                console.log("errot",err);
             });
 
-        history.push('/');
-        window.location.reload(false);
     };
 
     const myChangeHandler = (event) => {

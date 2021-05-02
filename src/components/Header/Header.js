@@ -21,24 +21,7 @@ import { Link as RouterLink } from "react-router-dom";
 import axios from "axios"
 import history from '../../history'
 
-const headersData = [
-  {
-    label: "Create Blog",
-    href: "/create-blog",
-  },
-  {
-    label: "Blogs",
-    href: "/",
-  },
-  {
-    label: "Events",
-    href: "/events",
-  },
-  {
-    label: "Chat",
-    href: "/chat",
-  }
-];
+
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -80,6 +63,25 @@ export default function Header() {
     drawerOpen: false,
   });
 
+  const [headersData, changeHeader] = useState([
+    {
+      label: "Create Blog",
+      href: "/create-blog",
+    },
+    {
+      label: "Blogs",
+      href: "/",
+    },
+    {
+      label: "Events",
+      href: "/events",
+    },
+    {
+      label: "Chat",
+      href: "/chat",
+    }
+  ])
+
   const { mobileView, drawerOpen } = state;
 
   useEffect(() => {
@@ -101,7 +103,7 @@ export default function Header() {
                 console.log(UserID);
                 for(let i=0;i<res.length;i++) {
                   if(UserID == res[i].UserID)
-                  headersData.push({  label: "Add Event",href: "/create-event",})
+                  changeHeader([...headersData,{  label: "Add Event",href: "/create-event",}])
                 }
             })
             .catch((err) => {

@@ -12,11 +12,13 @@ export default function CreateBlog() {
 
     const mySubmitHandler = (event) => {
         // event.preventDefault();
-        alert('You are submitting "' + blog.titleOfBlog + '" ');
+        console.log('You are submitting "' + blog.titleOfBlog + '" ');
 
         axios
             .post("http://localhost:4000/blog/createblog", {
-                ...blog,
+                title: blog.titleOfBlog,
+                Abstraction:blog.abstractOfBlog,
+                body: blog.contentOfBlog,
             },
             {
                 headers:{

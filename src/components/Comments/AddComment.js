@@ -16,11 +16,11 @@ function AddComment(prop) {
       setComment("")
       axios
             .post("http://localhost:4000/comment/", {
-                ...comment,
+                commentText:comment,
+                blogId:prop.match.params.id
             },
             {
                 headers:{
-                    'blogId':prop.match.params.id ,
                     "Authorization":"Bearer "+localStorage.getItem('accessToken')
                 }
             })

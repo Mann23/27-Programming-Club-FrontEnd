@@ -10,7 +10,7 @@ const Login = () => {
       username: Response.profileObj.name,
     }).then(res => {
       console.log("Received",res)
-      localStorage.setItem("UserID",Response.profileObj.name)
+      localStorage.setItem("UserID",Response.profileObj.name.replace(/\s/g, ""))
       localStorage.setItem('accessToken', res.data.accessToken)   
       history.push('/');
       window.location.reload(false);

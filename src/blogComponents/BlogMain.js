@@ -42,10 +42,10 @@ export default function BlogMain(prop) {
                             <BlogCard
                                 key={value.id}
                                 titleBlog={value.title}
-                                abstractBlog={value.body}
-                                contentBlog={value.body}
+                                abstractBlog={value.Abstraction}
+                                contentBlog={value.blog}
                                 uid={userid}
-                                authorId={userid}//{value.userid}
+                                authorId={userid}//{value.username}
                                 blogId={value.id}
                             />
                         </Grid>

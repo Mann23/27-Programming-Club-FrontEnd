@@ -25,8 +25,8 @@ const ViewBlog = (prop) => {
                 console.log(res);
                 setBlog({
                     titleOfBlog: res.data.title,
-                    abstractOfBlog: "yes",
-                    contentOfBlog: res.data.body,
+                    abstractOfBlog: res.data.Abstraction,
+                    contentOfBlog: res.data.blog,
                 })
             })
             .catch((err) => {
@@ -59,7 +59,7 @@ const ViewBlog = (prop) => {
                         <p className="AuthorName"> - {blog.author} </p>
                     </blockquote>
                 </div>
-                <CommentsContainer />
+                <CommentsContainer id={prop.match.params.id}/>
             </div>
         );
 }
