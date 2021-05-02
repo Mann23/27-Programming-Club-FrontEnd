@@ -4,20 +4,19 @@ import axios from 'axios';
 import history from '../../history'
 const Login = () => {
   const responseGoogle = (Response) => {
-   
+   console.log(Response,"Response")
     axios.post("http://localhost:4000/signIn", {
       email: Response.profileObj.email,
-      username: Response.profileObj.username,
+      username: Response.profileObj.name,
     }).then(res => {
-      console.log.log(res)
-      localStorage.setItem("UserId",Response.profileObj.name)
-      localStorage.setItem('accessToken', res.data.accessToken)
+      console.log("Received",res)
+      localStorage.setItem("UserID",Response.profileObj.name)
+      localStorage.setItem('accessToken', res.data.accessToken)   
+      history.push('/');
+      window.location.reload(false);
     }).catch(err => {
       console.log(err)
     })
-
-    history.push('/');
-    window.location.reload(false);
   }
 
   const errorGoogle = (error) => {

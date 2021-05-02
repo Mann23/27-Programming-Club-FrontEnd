@@ -29,9 +29,9 @@ const useStyles = makeStyles({
 
 export default function BlogCard(prop) {
     const classes = useStyles();
-
+    console.log(prop);
     const ViewBtnHandler = () => {
-        console.log(prop.blogId);
+        
 
         history.push('/view-blog/'+ prop.blogId);
 
@@ -53,17 +53,23 @@ export default function BlogCard(prop) {
         console.log("delete button pressed...");
 
         axios
-            .delete("https://jsonplaceholder.typicode.com/posts/1")
+            .delete("http://localhost:4000/blog/deleteblog/"+prop.blogId,
+            {
+                headers:{
+                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
+                }
+            })
             .then((res) => {
                 console.log(res);
                 console.log("inside reponce promise");
                 // setBlogs(res.data);
+                window.location.reload(false);
             })
             .catch((err) => {
                 console.log(err);
             });
 
-            window.location.reload(false);
+
     };
 
     if (prop.uid == prop.authorId) {

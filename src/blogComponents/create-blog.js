@@ -15,12 +15,13 @@ export default function CreateBlog() {
         alert('You are submitting "' + blog.titleOfBlog + '" ');
 
         axios
-            .post("https://jsonplaceholder.typicode.com/posts", {
-                // userId: 1,
-                // id: 1000,
-                // title: "qwertyuiop",
-                // body: "asdfghjkl",
+            .post("http://localhost:4000/blog/createblog", {
                 ...blog,
+            },
+            {
+                headers:{
+                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
+                }
             })
             .then(function (response) {
                 console.log("inside reponce promise");

@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField ,IconButton,Grid} from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import axios from "axios"
-function AddComment() {
+function AddComment(prop) {
    const [comment,setComment] =React.useState("")
 
    const handleChange =(event) => {
@@ -12,10 +12,17 @@ function AddComment() {
 
 
    const resetAndSubmit =() => {
+        prop.setComments([...prop.commets,comment])
       setComment("")
       axios
-            .post("https://jsonplaceholder.typicode.com/posts/1/comments", {
+            .post("http://localhost:4000/comment/", {
                 ...comment,
+            },
+            {
+                headers:{
+                    'blogId':prop.match.params.id ,
+                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
+                }
             })
             .then(function (response) {
                 console.log("inside reponce promise");

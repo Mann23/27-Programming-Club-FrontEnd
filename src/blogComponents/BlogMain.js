@@ -13,7 +13,12 @@ export default function BlogMain(prop) {
 
         console.log("fetch blogs");
         axios
-            .get("https://jsonplaceholder.typicode.com/posts/")
+            .get("http://localhost:4000/blog/viewblog",
+            {
+                headers:{
+                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
+                }
+            })
             .then((res) => {
                 console.log(res);
                 setBlogs(res.data);
@@ -40,7 +45,7 @@ export default function BlogMain(prop) {
                                 abstractBlog={value.body}
                                 contentBlog={value.body}
                                 uid={userid}
-                                authorId={userid}
+                                authorId={userid}//{value.userid}
                                 blogId={value.id}
                             />
                         </Grid>

@@ -5,7 +5,7 @@ import ChatContent from "../chatContent/ChatContent";
 
 const ChatBody = () => {
 
-  const [clickedId,setClickedId] = useState("XXXXXX")
+  const [clickedId,setClickedId] = useState("")
 
     return (
       <div className="main__chatbody">

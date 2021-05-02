@@ -30,7 +30,12 @@ const deleteComment =(clickedId)=>{
    console.log(clickedId,"events")
 
    axios
-        .delete("url"+clickedId)
+        .delete("http://localhost:4000/comment/"+clickedId,
+        {
+            headers:{
+                "Authorization":"Bearer "+localStorage.getItem('accessToken')
+            }
+        })
         .then((res) => {
             console.log(res);
             console.log("inside reponce promise");

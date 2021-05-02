@@ -15,7 +15,12 @@ const ViewBlog = (prop) => {
         const edit_blog_id = prop.match.params.id;
         console.log("edit_blog_id",edit_blog_id);
         axios
-            .get("https://jsonplaceholder.typicode.com/posts/"+ edit_blog_id)
+            .get("http://localhost:4000/blog/viewblog/"+ edit_blog_id,
+            {
+                headers:{
+                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
+                }
+            })
             .then((res) => {
                 console.log(res);
                 setBlog({

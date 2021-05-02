@@ -38,7 +38,7 @@ class CreateEvent extends Component {
             startDate:new Date(),
             startTime:new Date(),
             endDate:new Date(),
-            startTime:new Date()            
+            endTime:new Date()            
             
 		};
         this.changeHandler = this.changeHandler.bind(this);
@@ -66,12 +66,12 @@ class CreateEvent extends Component {
 
     handleStartDateTimeChange(date) {
         this.setState({
-          startDateTime: date
+          startTime: date
         })
       }
     handleEndDateTimeChange(date) {
         this.setState({
-          endDateTime: date
+          endTime: date
         })
     }
 
@@ -90,22 +90,48 @@ class CreateEvent extends Component {
         else{
             alert("Submitted")
         }
-        console.log(this.state)
-        let data=this.state;
-        fetch("https://jsonplaceholder.typicode.com/posts",{
+        // console.log(this.state)
+
+        let data= this.state
+        console.log(data);
+        // const sDate = data.startDate.getFullYear() +''+
+        //  data.startDate.getMonth()<10?'-0'?'-'+data.startDate.getMonth() +
+        //  '-'+ (data.startDate.getDate()+1)+
+        //  data.startTime.getHours()<10?'T0'?'T'+data.startTime.getHours()+
+        //  data.startTime.getMinutes()<10?':0'?':'+data.startTime.getMinutes()+
+        //  data.startTime.getSeconds()<10?':0'?':'+data.startTime.getSeconds()+'.000Z'
+         
+        //  const eDate = data.endDate.getFullYear() + ''+
+        // data.endDate.getMonth()<10?'-0'?'-'+data.endtDate.getMonth() +
+        // '-'+ (data.endDate.getDate()+1)+
+
+        // data.endTime.getHours()<10?'T0'?'T'+data.endTime.getHours()+
+        // data.endTime.getMinutes()<10?':0'?':'+data.endTime.getMinutes()+
+        // data.endTime.getSeconds()<10?':0'?':'+data.endTime.getSeconds()+'.000Z'
+
+        data = {
+            name:data.title,
+            isQuiz :data.eventType =='quiz'?true :false,
+			link:data.googleLink,
+            startDate:data.startDate,//sDate,
+            endDate:data.enddate//eDate,            
+		};
+        console.log(data);
+        fetch("http://localhost:4000/event/insert",{
             method:'POST',
             headers:{
                 'Accept':'application/json',
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization':'Bearer ' + localStorage.getItem('accessToken')
             },
             body:JSON.stringify(data)
         }).then((result)=>{
             result.json().then((resp)=>{
                 console.warn("resp",resp)
             })
+            // window.location.reload(false); 
         })
 
-        window.location.reload(false); 
         //this.resetForm()
 		
 	}

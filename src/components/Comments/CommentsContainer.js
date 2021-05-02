@@ -6,13 +6,15 @@ import AddComment from './AddComment'
 import {Grid, makeStyles,Container, Typography} from "@material-ui/core"
 
 
-function CommentsContainer() {
+function CommentsContainer(prop) {
+   
+   const [comments, setComments] = React.useState([]);
    return (
       <Container>
          <Grid container justify="space-between" >
             <Grid item xs={12}>
             
-            <AddComment />
+            <AddComment comments={comments}  setComments={setComments} />
             </Grid>
             <Grid item>
             <Typography  variant="h4" gutterBottom>
@@ -20,36 +22,34 @@ function CommentsContainer() {
             </Typography>
             </Grid>
          </Grid>
-         <Comments />
+         <Comments BlogId={prop.match.params.id} comments={comments}  setComments={setComments} />
       </Container>
    )
 }
 
 
 
-const Comments = ()=> {
-   const [comments, setComments] = React.useState([]);
+const Comments = ({props})=> {
    const [isFetching, setFetching] = React.useState(true);
       
     useEffect(() => {
       async function fetchComments() {
          let headers = { 
-            // 'authorization':JSON.parse(localStorage.getItem('authorization')),
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+ JSON.parse(localStorage.getItem('authorization'))
           }
-         let response = await fetch("https://jsonplaceholder.typicode.com/posts/1/comments",{headers})
+         let response = await fetch("http://localhost:4000/comment"+props.BlogId,{headers})
          response = await response.json()
          let commentList = response.slice(0, 10);
          console.log(commentList)
-         setComments([...commentList]) 
+         props.setComments([...commentList]) 
          setFetching(false)
           
       }  
       fetchComments()
     }, [])
    
-   return isFetching ? "Loading..." : <Comment comments={comments} />;
+   return isFetching ? "Loading..." : <Comment comments={props.comments} />;
       
 }
 

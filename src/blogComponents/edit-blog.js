@@ -12,11 +12,11 @@ export default function EditBlog(prop) {
     });
 
     useEffect(() => {
-        console.log("props>>",prop)
+        console.log("propseditblog>>",prop)
         const edit_blog_id = prop.match.params.id;
         console.log("edit_blog_id",edit_blog_id);
         axios
-            .get("https://jsonplaceholder.typicode.com/posts/"+ edit_blog_id)
+            .get("http://localhost:4000/blog/viewblog/"+ edit_blog_id)
             .then((res) => {
                 console.log(res);
                 setBlog({
@@ -37,8 +37,13 @@ export default function EditBlog(prop) {
         
 
          axios
-            .put("https://jsonplaceholder.typicode.com/posts/1", {
+            .put("http://localhost:4000/blog/updateblog/"+prop.match.params.id, {
                 ...blog,
+            },
+            {
+                headers:{
+                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
+                }
             })
             .then(function (response) {
                 console.log("inside reponce promise");

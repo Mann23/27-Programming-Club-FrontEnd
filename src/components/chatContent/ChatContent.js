@@ -73,7 +73,6 @@ export default class ChatContent extends Component {
             </div>
           </div>
         </div>
-
         <div className="content__body">
           <div className="chat__items">
             {this.state.chat.map((itm) => {
@@ -102,6 +101,6 @@ export default class ChatContent extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

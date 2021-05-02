@@ -18,6 +18,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import axios from "axios"
 import history from '../../history'
 
 const headersData = [
@@ -82,14 +83,40 @@ export default function Header() {
   const { mobileView, drawerOpen } = state;
 
   useEffect(() => {
-    const setResponsiveness = () => {
-      return window.innerWidth < 900
-        ? setState((prevState) => ({ ...prevState, mobileView: true }))
-        : setState((prevState) => ({ ...prevState, mobileView: false }));
-    };
+        axios
+            .get("http://localhost:4000/core",
+            {
+                headers:{
+                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
+                }
+            })
+            .then((res) => {
+                
+                res =res.data.map(member=> {
+                 return { UserID:member.email.split("@")[0]}
+                })
+                const UserID=localStorage.getItem('UserID')
 
-    setResponsiveness();
+                console.log(res);
+                console.log(UserID);
+                for(let i=0;i<res.length;i++) {
+                  if(UserID == res[i].UserID)
+                  headersData.push({  label: "Add Event",href: "/create-event",})
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
+
+
+            const setResponsiveness = () => {
+              return window.innerWidth < 900
+                ? setState((prevState) => ({ ...prevState, mobileView: true }))
+                : setState((prevState) => ({ ...prevState, mobileView: false }));
+            };
+        
+            setResponsiveness();
     window.addEventListener("resize", () => setResponsiveness());
   }, []);
 
@@ -155,6 +182,7 @@ export default function Header() {
   };
 
   const getDrawerChoices = () => {
+    console.log(headersData)
     return headersData.map(({ label, href }) => {
       return (
         <Link
@@ -179,6 +207,7 @@ export default function Header() {
   );
 
   const getMenuButtons = () => {
+    console.log(headersData)
     return headersData.map(({ label, href }) => {
       return (
         <Button
