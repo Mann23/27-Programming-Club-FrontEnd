@@ -39,9 +39,11 @@ const Comments = (props)=> {
             'Authorization': 'Bearer '+ localStorage.getItem('authorization')
           }
          //  "http://localhost:4000/comment/"+props.BlogId
-         let response = await fetch("",{headers})
+         let response = await fetch("http://localhost:4000/comment/"+props.BlogId,{headers})
+         console.log(response)
          response = await response.json()
-         let commentList = await response.slice(0, 10);
+         console.log("respodcjkbdshcbhjdsbcbnse",response)
+         let commentList = response.comments.slice(0, 10);
          console.log(commentList)
          props.setComments([...commentList]) 
          setFetching(false)

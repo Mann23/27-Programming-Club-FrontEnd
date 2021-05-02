@@ -43,7 +43,10 @@ export default function EditBlog(prop) {
 
          axios
             .put("http://localhost:4000/blog/updateblog/"+prop.match.params.id, {
-                ...blog,
+                title: blog.titleOfBlog,
+                abstraction:blog.abstractOfBlog,
+                blog: blog.contentOfBlog,
+                username:localStorage.getItem('UserID')
             },
             {
                 headers:{

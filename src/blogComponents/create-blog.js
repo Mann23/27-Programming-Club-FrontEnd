@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./create-blog.css";
+axios.interceptors.request.use(
+    (config) => {
+      config.headers.authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
 export default function CreateBlog() {
 
@@ -14,17 +23,19 @@ export default function CreateBlog() {
         // event.preventDefault();
         console.log('You are submitting "' + blog.titleOfBlog + '" ');
 
+        let headers= {
+            "Content-Type": 'application/json',
+            "Authorization":"Bearer "+localStorage.getItem('accessToken')
+        }
+
+        let body ={ 
+            title: blog.titleOfBlog,
+            abstraction:blog.abstractOfBlog,
+            blog: blog.contentOfBlog,
+            username:localStorage.getItem('UserID')
+        }
         axios
-            .post("http://localhost:4000/blog/createblog", {
-                title: blog.titleOfBlog,
-                Abstraction:blog.abstractOfBlog,
-                body: blog.contentOfBlog,
-            },
-            {
-                headers:{
-                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
-                }
-            })
+            .post("http://localhost:4000/blog/createblog", body)
             .then(function (response) {
                 console.log("inside reponce promise");
                 console.log(response);
