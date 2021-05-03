@@ -15,6 +15,18 @@ import TimePicker from './TimePicker'
 import TimePicker2 from './TimePicker2'
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios"
+
+axios.interceptors.request.use(
+    (config) => {
+      config.headers.authorization = `Bearer ${localStorage.getItem("accessToken")}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
 
 const paperStyle={padding:'30px 20px', width:600, margin:"30px auto"}
 /*
@@ -94,44 +106,32 @@ class CreateEvent extends Component {
 
         let data= this.state
         console.log(data);
-        // const sDate = data.startDate.getFullYear() +''+
-        //  data.startDate.getMonth()<10?'-0'?'-'+data.startDate.getMonth() +
-        //  '-'+ (data.startDate.getDate()+1)+
-        //  data.startTime.getHours()<10?'T0'?'T'+data.startTime.getHours()+
-        //  data.startTime.getMinutes()<10?':0'?':'+data.startTime.getMinutes()+
-        //  data.startTime.getSeconds()<10?':0'?':'+data.startTime.getSeconds()+'.000Z'
+
+        const sDate = JSON.stringify(data.startDate).split('T')[0] + 'T' +
+        JSON.stringify(data.startTime).split('T')[1]
          
-        //  const eDate = data.endDate.getFullYear() + ''+
-        // data.endDate.getMonth()<10?'-0'?'-'+data.endtDate.getMonth() +
-        // '-'+ (data.endDate.getDate()+1)+
+        const eDate = JSON.stringify(data.endDate).split('T')[0] + 'T' +
+        JSON.stringify(data.endTime).split('T')[1]
 
-        // data.endTime.getHours()<10?'T0'?'T'+data.endTime.getHours()+
-        // data.endTime.getMinutes()<10?':0'?':'+data.endTime.getMinutes()+
-        // data.endTime.getSeconds()<10?':0'?':'+data.endTime.getSeconds()+'.000Z'
-
+        console.log(eDate,sDate)
         data = {
             name:data.title,
             isQuiz :data.eventType =='quiz'?true :false,
 			link:data.googleLink,
-            startDate:data.startDate,//sDate,
-            endDate:data.enddate//eDate,            
+            startDate:new Date(sDate),
+            endDate:new Date(eDate),            
 		};
         console.log(data);
-        fetch("http://localhost:4000/event/insert",{
-            method:'POST',
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json',
-                'Authorization':'Bearer ' + localStorage.getItem('accessToken')
-            },
-            body:JSON.stringify(data)
-        }).then((result)=>{
-            result.json().then((resp)=>{
-                console.warn("resp",resp)
-            })
-            // window.location.reload(false); 
-        })
 
+        axios
+        .post("http://localhost:4000/event/insert", data)
+        .then(function (response) {
+            console.log("inside reponce promise");
+            console.log(response);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
         //this.resetForm()
 		
 	}

@@ -62,6 +62,7 @@ export default function AllEvents(props){
         event.endDate = new Date(event["endDate"])
       })
       setEvent([...data,...response]) 
+      console.log(response)
     }
 
 

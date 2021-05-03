@@ -10,7 +10,15 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import history from '../history';
 
-
+axios.interceptors.request.use(
+    (config) => {
+      config.headers.authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
 const useStyles = makeStyles({
     root: {

@@ -27,7 +27,6 @@ function AddComment(props) {
    console.log(props.comments)
    const resetAndSubmit =() => {
         props.setComments([...props.comments,comment])
-      setComment("")
       axios.post("http://localhost:4000/comment/", {
                 commentText:comment,
                 blogId:params.id
@@ -35,6 +34,7 @@ function AddComment(props) {
             .then(function (response) {
                 console.log("Successfull")
                 console.log(response);
+                setComment("")
                 window.location.reload()
             })
             .catch((err) => {

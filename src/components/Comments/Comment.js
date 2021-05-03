@@ -26,25 +26,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+axios.interceptors.request.use(
+  (config) => {
+    config.headers.authorization = `Bearer ${localStorage.getItem("accessToken")}`;
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 const deleteComment =(clickedId)=>{
    console.log(clickedId,"events")
 
    axios
-        .delete("http://localhost:4000/comment/"+clickedId,
-        {
-            headers:{
-                "Authorization":"Bearer "+localStorage.getItem('accessToken')
-            }
-        })
+        .delete("http://localhost:4000/comment/"+clickedId)
         .then((res) => {
             console.log(res);
             console.log("inside reponce promise");
+            window.location.reload(false);
         })
         .catch((err) => {
             console.log(err);
         });
 
-        window.location.reload(false);
 }
 
 
@@ -84,9 +89,18 @@ return (
           </>
         }
       />
-      <IconButton onClick={()=> deleteComment(comment.id)}>
-          <DeleteIcon color="secondary"/>
-      </IconButton>
+
+
+      {
+        localStorage.getItem("UserID") == comment.email.split("@")[0] &&  
+        
+          <IconButton onClick={()=> deleteComment(comment._id)}>
+            <DeleteIcon color="secondary"/>
+          </IconButton>
+        
+      }
+
+
     </ListItem>
     <Divider />
     

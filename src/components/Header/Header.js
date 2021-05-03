@@ -124,7 +124,7 @@ export default function Header() {
 
 
   const logout = () => {
-    localStorage.removeItem("UserId")
+    localStorage.removeItem("UserID")
     history.push('/'); 
     window.location.reload(false)
   }
