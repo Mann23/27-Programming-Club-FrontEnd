@@ -12,7 +12,7 @@ import history from '../history';
 
 axios.interceptors.request.use(
     (config) => {
-      config.headers.authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+      config.headers.authorization = `Bearer ${localStorage.getItem("accessToken")}`;
       return config;
     },
     (error) => {
@@ -62,12 +62,7 @@ export default function BlogCard(prop) {
         console.log("delete button pressed...");
 
         axios
-            .delete("http://localhost:4000/blog/deleteblog/"+prop.blogId,
-            {
-                headers:{
-                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
-                }
-            })
+            .delete("http://localhost:4000/blog/deleteblog/"+prop.blogId)
             .then((res) => {
                 console.log(res);
                 console.log("inside reponce promise");

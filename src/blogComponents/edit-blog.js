@@ -53,11 +53,6 @@ export default function EditBlog(prop) {
                 abstraction:blog.abstractOfBlog,
                 blog: blog.contentOfBlog,
                 username:localStorage.getItem('UserID')
-            },
-            {
-                headers:{
-                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
-                }
             })
             .then(function (response) {
                 console.log("inside reponce promise");

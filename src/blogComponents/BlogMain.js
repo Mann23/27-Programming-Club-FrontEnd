@@ -52,7 +52,7 @@ export default function BlogMain(prop) {
                                 abstractBlog={value.Abstraction}
                                 contentBlog={value.blog}
                                 uid={userid}
-                                authorId={userid}//{value.username}
+                                authorId={value.username}
                                 blogId={value.id}
                             />
                         </Grid>
