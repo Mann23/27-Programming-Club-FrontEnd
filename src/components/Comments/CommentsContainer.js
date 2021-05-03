@@ -2,8 +2,21 @@ import React, { Component ,useEffect } from "react";
 import Comment from "./Comment";
 import './Comment.css';
 import AddComment from './AddComment'
+import axios from 'axios'
 
 import {Grid, makeStyles,Container, Typography} from "@material-ui/core"
+
+
+
+axios.interceptors.request.use(
+   (config) => {
+     config.headers.authorization = `Bearer ${localStorage.getItem("accessToken")}`;
+     return config;
+   },
+   (error) => {
+     return Promise.reject(error);
+   }
+ );
 
 
 function CommentsContainer(prop) {
@@ -38,15 +51,17 @@ const Comments = (props)=> {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+ localStorage.getItem('authorization')
           }
-         //  "http://localhost:4000/comment/"+props.BlogId
-         let response = await fetch("http://localhost:4000/comment/"+props.BlogId,{headers})
-         console.log(response)
-         response = await response.json()
-         console.log("respodcjkbdshcbhjdsbcbnse",response)
-         let commentList = response.comments.slice(0, 10);
-         console.log(commentList)
-         props.setComments([...commentList]) 
-         setFetching(false)
+
+        await axios.get("http://localhost:4000/comment/"+props.BlogId).then((res)=>{
+            console.log(res)
+            let commentList = res.data.comments;
+            console.log(commentList)
+            props.setComments([...commentList]) 
+            setFetching(false)
+         })
+         // response = await response.json()
+         // console.log("respodcjkbdshcbhjdsbcbnse",response)
+       
           
       }  
       fetchComments()

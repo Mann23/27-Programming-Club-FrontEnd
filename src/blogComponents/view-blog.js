@@ -3,6 +3,16 @@ import "./view-blog.css";
 import axios from 'axios'
 import CommentsContainer from '../components/Comments/CommentsContainer'
 
+axios.interceptors.request.use(
+    (config) => {
+      config.headers.authorization = `Bearer ${localStorage.getItem("accessToken")}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
 const ViewBlog = (prop) => {
     const [blog, setBlog] = useState({
         titleOfBlog: "",
@@ -15,18 +25,14 @@ const ViewBlog = (prop) => {
         const edit_blog_id = prop.match.params.id;
         console.log("edit_blog_id",edit_blog_id);
         axios
-            .get("http://localhost:4000/blog/viewblog/"+ edit_blog_id,
-            {
-                headers:{
-                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
-                }
-            })
+            .get("http://localhost:4000/blog/viewblog/"+ edit_blog_id)
             .then((res) => {
                 console.log(res);
                 setBlog({
                     titleOfBlog: res.data.title,
                     abstractOfBlog: res.data.Abstraction,
                     contentOfBlog: res.data.blog,
+                    username : res.data.username
                 })
             })
             .catch((err) => {
@@ -56,7 +62,7 @@ const ViewBlog = (prop) => {
                 <div className="AuthorInfo">
                     <blockquote>
                         <p>Created by</p>
-                        <p className="AuthorName"> - {blog.author} </p>
+                        <p className="AuthorName"> - {blog.username} </p>
                     </blockquote>
                 </div>
                 <CommentsContainer id={prop.match.params.id}/>

@@ -2,31 +2,40 @@ import React from 'react'
 import { TextField ,IconButton,Grid} from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import axios from "axios"
-function AddComment(prop) {
+import { useParams } from 'react-router';
+
+
+axios.interceptors.request.use(
+    (config) => {
+      config.headers.authorization = `Bearer ${localStorage.getItem("accessToken")}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+ 
+
+function AddComment(props) {
    const [comment,setComment] =React.useState("")
+   const params  =  useParams()
 
    const handleChange =(event) => {
       setComment(event.target.value)
       console.log(comment);
    }
-
-
+   console.log(props.comments)
    const resetAndSubmit =() => {
-        prop.setComments([...prop.commets,comment])
+        props.setComments([...props.comments,comment])
       setComment("")
-      axios
-            .post("http://localhost:4000/comment/", {
+      axios.post("http://localhost:4000/comment/", {
                 commentText:comment,
-                blogId:prop.match.params.id
-            },
-            {
-                headers:{
-                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
-                }
+                blogId:params.id
             })
             .then(function (response) {
-                console.log("inside reponce promise");
+                console.log("Successfull")
                 console.log(response);
+                window.location.reload()
             })
             .catch((err) => {
                 console.log(err);

@@ -39,7 +39,6 @@ const deleteComment =(clickedId)=>{
         .then((res) => {
             console.log(res);
             console.log("inside reponce promise");
-            // setBlogs(res.data);
         })
         .catch((err) => {
             console.log(err);
@@ -53,7 +52,7 @@ const Comment = ({ comments }) => {
   const classes = useStyles();
   return (
     <List className={classes.root}>
-      {comments.map(comment => <CommentRow comment={comment} />)}
+      {comments.map(comment => <CommentRow key={comment.id} comment={comment} />)}
     </List>
   );
 };
@@ -81,7 +80,7 @@ return (
             >
               {comment.email}
             </Typography>
-            {` - ${comment.body}`}
+            {` - ${comment.commentText}`}
           </>
         }
       />

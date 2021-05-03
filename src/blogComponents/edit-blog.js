@@ -3,6 +3,18 @@ import axios from "axios";
 import "./edit-blog.css";
 import history from '../history';
 
+
+axios.interceptors.request.use(
+    (config) => {
+      config.headers.authorization = `Bearer ${localStorage.getItem("accessToken")}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+ 
+
 export default function EditBlog(prop) {
 
     const [blog, setBlog] = useState({
@@ -15,13 +27,7 @@ export default function EditBlog(prop) {
         console.log("propseditblog>>",prop)
         const edit_blog_id = prop.match.params.id;
         console.log("edit_blog_id",edit_blog_id);
-        axios
-            .get("http://localhost:4000/blog/viewblog/"+ edit_blog_id,
-            {
-                headers:{
-                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
-                }
-            })
+        axios.get("http://localhost:4000/blog/viewblog/"+ edit_blog_id)
             .then((res) => {
                 console.log(res);
                 setBlog({

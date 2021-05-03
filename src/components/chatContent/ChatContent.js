@@ -1,6 +1,7 @@
 import React, { Component, createRef } from "react";
 import "./chatContent.css";
 import ChatItem from "./ChatItem";
+import axios from 'axios'
 
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
@@ -60,6 +61,8 @@ export default class ChatContent extends Component {
       this.setState({ chat: [...this.chatItms] });
       this.scrollToBottom();
       this.setState({ msg: "" });
+
+      axios.post()
     }
   }
 
