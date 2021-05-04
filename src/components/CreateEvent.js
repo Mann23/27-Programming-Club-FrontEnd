@@ -16,6 +16,7 @@ import TimePicker2 from './TimePicker2'
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios"
+import { LensTwoTone } from '@material-ui/icons';
 
 axios.interceptors.request.use(
     (config) => {
@@ -106,25 +107,39 @@ class CreateEvent extends Component {
 
         let data= this.state
         console.log(data);
+        let startdate = data.startDate
+        let startTime = data.startTime
+        let date = startdate.getFullYear()+'-'+(startdate.getMonth()+1)+'-'+startdate.getDate();
+        let time = startTime.getHours() + ":" + startTime.getMinutes() + ":" + startTime.getSeconds();
+        console.log(date,time);
+        console.log(new Date(date+' '+time))
+         let sDate = new Date(date+' '+time)
+        // JSON.stringify(data.startDate).split('T')[0] + 'T' +
+        // JSON.stringify(data.startTime).split('T')[1]
+        let endDate = data.endDate
+        let endTime = data.endTime
+        date = endDate.getFullYear()+'-'+(endDate.getMonth()+1)+'-'+endDate.getDate();
+        time = endTime.getHours() + ":" + endTime.getMinutes() + ":" + endTime.getSeconds();
 
-        const sDate = JSON.stringify(data.startDate).split('T')[0] + 'T' +
-        JSON.stringify(data.startTime).split('T')[1]
-         
-        const eDate = JSON.stringify(data.endDate).split('T')[0] + 'T' +
-        JSON.stringify(data.endTime).split('T')[1]
+         let eDate = new Date(date+' '+time)
+        //  JSON.stringify(data.endDate).split('T')[0] + 'T' +
+        // JSON.stringify(data.endTime).split('T')[1]
 
-        console.log(eDate,sDate)
-        data = {
+        // console.log(eDate,sDate,typeof sDate)
+        // sDate = new Date(sDate)
+        // eDate = new Date(eDate)
+        // console.log(eDate,sDate,typeof sDate)
+        const body = {
             name:data.title,
             isQuiz :data.eventType =='quiz'?true :false,
 			link:data.googleLink,
-            startDate:new Date(sDate),
-            endDate:new Date(eDate),            
+            startDate:sDate,
+            endDate:eDate            
 		};
-        console.log(data);
+        console.log(body);
 
         axios
-        .post("http://localhost:4000/event/insert", data)
+        .post("http://localhost:4000/event/insert", body)
         .then(function (response) {
             console.log("inside reponce promise");
             console.log(response);
