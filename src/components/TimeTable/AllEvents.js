@@ -71,7 +71,8 @@ export default function AllEvents(props){
 
 
   const onSelect = (event) =>{
-    setTitle(event.title)
+    console.log(event)
+    setTitle(event.name)
     setLink(event.link)
     setStart(moment(event.start).format("DD MMMM YYYY, hh:mm A"));
     setEnd(moment(event.end).format("DD MMMM YYYY, hh:mm A"))

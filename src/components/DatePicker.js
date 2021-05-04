@@ -12,7 +12,11 @@ export default function DatePicker(props){
 
     const handleDateChange=(date)=>{
         setSelectedDate(date)
-        props.datas.changeStartDate(date)
+
+        if(props.datas.type == 'start')
+            props.datas.changeStartDate(date)
+        else
+            props.datas.changeEndDate(date)
     }
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>

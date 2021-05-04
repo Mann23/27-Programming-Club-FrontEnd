@@ -54,7 +54,7 @@ const App = ()=> {
             <Route path="/" component={BlogMain} exact/>              
             </>
             ): (<>
-              <Route  path="/" component={Login} />
+              <Route  path="/" component={Login} exact/>
             </>)}
           </Switch>
         </Grid>

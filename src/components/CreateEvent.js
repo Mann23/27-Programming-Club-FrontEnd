@@ -10,9 +10,7 @@ import { Button , makeStyles } from "@material-ui/core";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 //import DatePicker from 'react-datepicker';
 import DatePicker from './DatePicker'
-import DatePicker2 from './DatePicker2'
 import TimePicker from './TimePicker'
-import TimePicker2 from './TimePicker2'
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios"
@@ -236,25 +234,25 @@ class CreateEvent extends Component {
                     <Typography style={{color:'#757575'}}  variant="body1" gutterBottom >Start Date</Typography>                
                     <Grid>
                         <DatePicker datas={
-                            { startDate:this.state.startDate,changeStartDate:this.changeStartDate.bind(this)}
+                            { startDate:this.state.startDate,changeStartDate:this.changeStartDate.bind(this),type:'start'}
                         }/>
                     </Grid>
                     <Typography style={{color:'#757575'}}  variant="body1" gutterBottom >Start Time</Typography>                
                     <Grid>
-                        <TimePicker datas3={
-                            { startTime:this.state.startTime,changeStartTime:this.changeStartTime.bind(this)}
+                        <TimePicker datas={
+                            { startTime:this.state.startTime,changeStartTime:this.changeStartTime.bind(this),type:'start'}
                         }/>
                     </Grid>
                     <Typography style={{color:'#757575'}}  variant="body1" gutterBottom >End Date</Typography>                
                     <Grid>
-                        <DatePicker2 datas2={
-                            { endDate:this.state.endDate,changeEndDate:this.changeEndDate.bind(this)}
+                        <DatePicker datas={
+                            { endDate:this.state.endDate,changeEndDate:this.changeEndDate.bind(this),type:'end'}
                         }/>
                     </Grid>
                     <Typography style={{color:'#757575'}}  variant="body1" gutterBottom >End Time</Typography>                
                     <Grid>
-                        <TimePicker2 datas4={
-                            { endTime:this.state.endTime,changeEndTime:this.changeEndTime.bind(this)}
+                        <TimePicker datas={
+                            { endTime:this.state.endTime,changeEndTime:this.changeEndTime.bind(this),type:'end'}
                         }/>
                     </Grid>
                     <Grid align='center'>
