@@ -44,7 +44,6 @@ export default function EditBlog(prop) {
     const mySubmitHandler = (event) => {
         event.preventDefault();
         console.log(event,blog);
-        alert('You are submitting "' + JSON.stringify(blog) + '" ');
         
 
          axios
