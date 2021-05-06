@@ -232,25 +232,25 @@ class CreateEvent extends Component {
                         </TextField>
                     </Grid>
                     <Typography style={{color:'#757575'}}  variant="body1" gutterBottom >Start Date</Typography>                
-                    <Grid>
+                    <Grid xs={6}>
                         <DatePicker datas={
                             { startDate:this.state.startDate,changeStartDate:this.changeStartDate.bind(this),type:'start'}
                         }/>
-                    </Grid>
+                    </Grid >
                     <Typography style={{color:'#757575'}}  variant="body1" gutterBottom >Start Time</Typography>                
-                    <Grid>
+                    <Grid xs={6}>
                         <TimePicker datas={
                             { startTime:this.state.startTime,changeStartTime:this.changeStartTime.bind(this),type:'start'}
                         }/>
                     </Grid>
                     <Typography style={{color:'#757575'}}  variant="body1" gutterBottom >End Date</Typography>                
-                    <Grid>
+                    <Grid xs={6}>
                         <DatePicker datas={
                             { endDate:this.state.endDate,changeEndDate:this.changeEndDate.bind(this),type:'end'}
                         }/>
                     </Grid>
                     <Typography style={{color:'#757575'}}  variant="body1" gutterBottom >End Time</Typography>                
-                    <Grid>
+                    <Grid xs={6}>
                         <TimePicker datas={
                             { endTime:this.state.endTime,changeEndTime:this.changeEndTime.bind(this),type:'end'}
                         }/>
