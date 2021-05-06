@@ -36,6 +36,8 @@ const Login = () => {
     onFailure={errorGoogle}
     cookiePolicy={'single_host_origin'}
     />
+    <br></br>  <br></br>
+    <p className='fontstyle'> <b>*Kindly use Daiict g-suite Account only*</b></p>
  </div>
 	)
 }
