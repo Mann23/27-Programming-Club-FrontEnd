@@ -4,7 +4,7 @@
  }
  
  .chatMenu {
-   flex: 3.5;
+   flex: 1.1;
  }
  
  .chatMenuInput {
@@ -23,6 +23,7 @@
    flex-direction: column;
    justify-content: space-between;
    position: relative;
+   border-left: 5px solid #dce1fd;
  }
  
  .chatBoxTop {
@@ -35,7 +36,8 @@
    margin-top: 5px;
    display: flex;
    align-items: center;
-   justify-content: space-between;
+   /* justify-content: space-between; */
+   /* margin-right: 100px; */
  }
  
  .chatMessageInput {
@@ -50,9 +52,18 @@
    border: none;
    border-radius: 5px;
    cursor: pointer;
-   background-color: teal;
+   background-color: #400ccc;
    color: white;
+   margin-left: 50px;
  }
+
+ /* .chatSubmitButton :hover{
+  transform: scale(1.2);
+ } */
+
+ /* .item.active{
+   background-color: #ecefff;
+ } */
  
  .chatOnline {
    flex: 3;
@@ -66,10 +77,10 @@
  }
  
  .noConversationText {
-   position: absolute;
+   position:inherit;
    top: 10%;
    font-size: 50px;
-   color: rgb(224, 220, 220);
+   color: #dce1fd;
    cursor: default;
  }
  
