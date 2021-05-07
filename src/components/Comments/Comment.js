@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   List,
@@ -34,41 +34,51 @@ axios.interceptors.request.use(
   }
 );
 
-const deleteComment =(clickedId)=>{
-   console.log(clickedId,"events")
 
-   axios
+
+const Comment = ({ setComments,comments }) => {
+  const classes = useStyles();
+  const [clickedId, setclickedId] = useState(null);
+
+useEffect(() => {
+
+    if(clickedId)
+      {
+        axios
         .delete(`${process.env.REACT_APP_URL}/comment/`+clickedId)
         .then((res) => {
             console.log(res);
             console.log("inside reponce promise");
-            window.location.reload(false);
         })
         .catch((err) => {
             console.log(err);
         });
 
-}
+      setComments(comments.filter(function( obj ) {
+        return obj._id !== clickedId ;
+        }))
+    }
+},[clickedId])
 
-const Comment = ({ comments }) => {
-  const classes = useStyles();
+
   return (
     <List className={classes.root}>
-      {comments.map(comment => <CommentRow key={comment.id} comment={comment} />)}
+      {comments.map(comment => <CommentRow setclickedId={setclickedId} key={comment.id} comment={comment} />)}
     </List>
   );
 };
 
-const CommentRow = ({comment}) => {
+const CommentRow = ({setclickedId,comment}) => {
   const classes = useStyles();
 
+console.log(comment);
 return (
   <>
-    <ListItem key={comment.id} alignItems="flex-start">
+    <ListItem key={comment?.id} alignItems="flex-start">
       <ListItemText
         primary={
           <Typography className={classes.fonts}>
-            {comment.name}
+            {comment?.name}
           </Typography>
         }
         secondary={
@@ -79,16 +89,16 @@ return (
               className={classes.inline}
               color="textPrimary"
             >
-              {comment.email}
+              {comment.email.split("@")[0]}
             </Typography>
-            {` - ${comment.commentText}`}
+            {` - ${comment?.commentText}`}
           </>
         }
       />
       {
         localStorage.getItem("UserID") == comment.email.split("@")[0] &&  
         
-          <IconButton onClick={()=> deleteComment(comment._id)}>
+          <IconButton onClick={()=> setclickedId(comment._id)}>
             <DeleteIcon color="secondary"/>
           </IconButton>
         

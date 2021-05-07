@@ -14,13 +14,7 @@ import ViewBlog from "./components/blogComponents/view-blog.js";
 import EditBlog from "./components/blogComponents/edit-blog.js";
 import BlogMain from './components/blogComponents/BlogMain';
 
-const useStyles = makeStyles((theme) => ({
-  toolbarUncover: theme.mixins.toolbar,
-}));
-
-const App = ()=> {
-  const { toolbarUncover } = useStyles();
-  
+const App = ()=> {  
   return (
   <div>  
       <Grid container direction={"column"} spacing={10}>
@@ -28,7 +22,6 @@ const App = ()=> {
             localStorage.getItem('UserID') &&
             <Grid item xs={12} >
               <Header/>
-              <div className={toolbarUncover} />
             </Grid>
         }
         <Grid item xs={12}>  

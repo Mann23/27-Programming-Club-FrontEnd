@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-
+import {  format } from 'date-fns'
 import moment from 'moment'
 
 const localizer = momentLocalizer(moment)
@@ -43,13 +43,14 @@ export default function AllEvents(props){
 
 
   const onSelect = (event) =>{
-    console.log(event)
     setTitle(event.name)
     setLink(event.link)
-    setStart(moment(event.start).format("DD MMMM YYYY, hh:mm A"));
-    setEnd(moment(event.end).format("DD MMMM YYYY, hh:mm A"))
+    setStart(moment(event.startDate).format("DD MMMM YYYY, hh:mm A"));
+    setEnd(moment(event.endDate).format("DD MMMM YYYY, hh:mm A"))
     setOpen(true);
-    console.log(event,moment(event.start).format("DD MMMM YYYY, HH:mm"));
+    console.log(event);
+    console.log(moment(event.startDate).format("DD MMMM YYYY, HH:mm"),moment(event.endDate).format("DD MMMM YYYY, HH:mm"));
+    
   }
   
   const handleClose = () => {

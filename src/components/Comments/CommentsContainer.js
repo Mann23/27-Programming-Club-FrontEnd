@@ -16,8 +16,8 @@ axios.interceptors.request.use(
  );
 
 function CommentsContainer(prop) {
-   console.log(prop)
    const [comments, setComments] = React.useState([]);
+   
    return (
       <Container>
          <Grid container justify="space-between" >
@@ -41,9 +41,9 @@ const Comments = (props)=> {
     useEffect(() => {
       async function fetchComments() {
         await axios.get(`${process.env.REACT_APP_URL}/comment/`+props.BlogId).then((res)=>{
-            console.log(res)
+            // console.log(res)
             let commentList = res.data.comments;
-            console.log(commentList)
+            // console.log(commentList)
             props.setComments([...commentList]) 
             setFetching(false)
          })    
@@ -51,7 +51,7 @@ const Comments = (props)=> {
       fetchComments()
     }, [])
    
-   return isFetching ? "Loading..." : <Comment comments={props.comments} />;
+   return isFetching ? "Loading..." : <Comment setComments={props.setComments} comments={props.comments} />;
       
 }
 

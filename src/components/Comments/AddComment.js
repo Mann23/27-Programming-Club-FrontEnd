@@ -17,28 +17,29 @@ axios.interceptors.request.use(
  
 
 function AddComment(props) {
-   const [comment,setComment] =React.useState("")
+   const [comment,setComment] = React.useState("")
    const params  =  useParams()
 
    const handleChange =(event) => {
       setComment(event.target.value)
-      console.log(comment);
    }
-   console.log(props.comments)
+   //console.log(props.comments)
+
    const resetAndSubmit =() => {
-        props.setComments([...props.comments,comment])
+      //console.log(props.comments)
       axios.post(`${process.env.REACT_APP_URL}/comment/`, {
                 commentText:comment,
                 blogId:params.id
             })
-            .then(function (response) {
-                console.log("Successfull")
-                console.log(response);
+            .then(function (res) {
+                props.setComments([...props.comments,res.data.commentSaved])
+                //console.log("Successfull")
+                console.log(res);
                 setComment("")
-                window.location.reload()
+               //  window.location.reload(false)
             })
             .catch((err) => {
-                console.log(err);
+                //console.log(err);
             });
    }
    return (

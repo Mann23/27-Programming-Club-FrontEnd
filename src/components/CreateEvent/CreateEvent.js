@@ -120,6 +120,7 @@ class CreateEvent extends Component {
         .then(function (response) {
             console.log("inside reponce promise");
             console.log(response);
+            this.resetForm()
         })
         .catch((err) => {
             console.log(err);
@@ -181,7 +182,7 @@ class CreateEvent extends Component {
                         variant="outlined"
                         label=""
                         name="title"
-                        value={this.title}
+                        value={this.state.title}
                         onChange={this.changeHandler}
                         >                      
                         </TextField>
@@ -204,7 +205,7 @@ class CreateEvent extends Component {
                         variant="outlined"
                         label=""
                         name="googleLink"
-                        value={this.googleLink}
+                        value={this.state.googleLink}
                         onChange={this.changeHandler}
                         >                      
                         </TextField>
@@ -235,7 +236,7 @@ class CreateEvent extends Component {
                     </Grid>
                     <Grid align='center'>
                         <Button  size="large" variant="contained" color="primary" onClick={ this.submitHandler} >Submit</Button>
-                        <Button style={{marginLeft:20}} size="large" variant="contained" color="secondary" onClick={()=> window.location.reload(false) }  >Reset</Button>
+                        <Button style={{marginLeft:20}} size="large" variant="contained" color="secondary" onClick={()=> this.resetForm() }  >Reset</Button>
                     </Grid>
                 </Grid>
 				</form>
