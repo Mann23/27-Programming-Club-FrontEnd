@@ -19,9 +19,6 @@ export default function Messenger() {
   const [currentChat, setCurrentChat] = useState();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [sender, setSender] = useState(null);  
-
-  const user = { username:localStorage.getItem('UserID')}
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -51,12 +48,6 @@ export default function Messenger() {
   }, []);
 
   useEffect(() => {
-    // console.log(conversations);
-    // console.log(messages);
-    console.log(currentChat);
-  }, [currentChat])
-
-  useEffect(() => {
     const getMessages = async () => {
       console.log("getM",currentChat?._id)
       try {
@@ -67,19 +58,9 @@ export default function Messenger() {
       }
     };
 
-    const getSender = async () => {
-      try {
-        const res = await axios.get("http://localhost:4000/users/" + currentChat.anotherUser);
-        setSender(res.data.username);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
     if(currentChat)
      {
       getMessages();
-      getSender();
      } 
   }, [currentChat]);
 
@@ -103,8 +84,6 @@ let repeat =  setInterval(
           const arrivalMessage= res.data.slice(i)
           
         setMessages([...messages, ...arrivalMessage]);
-        // console.log(res.data.length,messages.length,last,arrivalMessage)
-        // console.log("messages",messages)
         }          
       }
     }
@@ -125,7 +104,6 @@ let repeat =  setInterval(
     try {
       const res = await axios.post("http://localhost:4000/chat/addMessage", message);
       setMessages([...messages, res.data]);
-      // console.log("km che bhai",messages,res.data)
       setNewMessage("");
     } catch (err) {
       console.log(err);
@@ -159,7 +137,7 @@ let repeat =  setInterval(
                     <div ref={scrollRef}>
                       <Message message={m} own={m.sender !== currentChat.anotherUser} />
 
-                      {console.log(sender,user.username , sender == user.username)}
+                      {console.log(m.sender,currentChat.anotherUser)}
                     </div>
                   ))}
                 </div>
