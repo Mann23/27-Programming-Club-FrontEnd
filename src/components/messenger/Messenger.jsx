@@ -28,8 +28,21 @@ export default function Messenger() {
     const getConversations = async () => {
       console.log("getC")
       try {
-        const res = await axios.get("http://localhost:4000/chat/getConversation");
-        setConversations(res.data);
+        let res = await axios.get("http://localhost:4000/chat/getConversation");
+        console.log(res)
+        let mapped = await res.data.map(
+          (object) => {
+          let anotherUser
+
+          object.members.forEach( member => { 
+            if(member != object.user )
+              anotherUser = member
+            
+          })
+          console.log(anotherUser)
+            return { conversationId :object._id, anotherUser:anotherUser }
+        })
+        setConversations(mapped);
       } catch (err) {
         console.log(err);
       }
@@ -131,7 +144,7 @@ let repeat =  setInterval(
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             {
-                conversations.map((c) => (
+                conversations?.map((c) => (
                 <div onClick={() => setCurrentChat(c)}>
                   <Conversation conversation={c} anotherUser={c.anotherUser} />
                 </div>
@@ -145,8 +158,8 @@ let repeat =  setInterval(
                 <div className="chatBoxTop">
                   {messages.map((m) => (
                     <div ref={scrollRef}>
-                      <Message message={m} own={sender === user.username} />
-                      {/* sender no username store karavi to thai jaai */}
+                      <Message message={m} own={sender == user.username} />
+                      {console.log(sender, user)}
                     </div>
                   ))}
                 </div>

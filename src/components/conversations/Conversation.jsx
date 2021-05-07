@@ -19,7 +19,7 @@ export default function Conversation({ conversation, anotherUser }) {
       try {
         const res = await axios.get("http://localhost:4000/users/" + anotherUser);
         console.log(res.data.username)
-        setUser(res.data.username);
+        await setUser(res.data.username);
       } catch (err) {
         console.log(err);
       }
@@ -30,9 +30,7 @@ export default function Conversation({ conversation, anotherUser }) {
   console.log(anotherUser ,user)
   return (
     <div className="conversation">
-      <span className="conversationName">{
-      user?.username
-      }</span>
+      <span className="conversationName">{user}</span>
     </div>
   );
 }
