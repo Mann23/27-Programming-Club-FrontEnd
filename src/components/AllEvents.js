@@ -1,6 +1,7 @@
-import React, { useEffect} from 'react';
+import React, {Children} from 'react';
+// import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './AllEvents.css';
-import events from '../../data/events';
+import events from '../data/events';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,40 +13,42 @@ import Button from '@material-ui/core/Button';
 import moment from 'moment'
 
 const localizer = momentLocalizer(moment)
+const CURRENT_DATE = moment().toDate();
+// let MyToolbar =() => (
+//     <div>
+//         <p>hello</p>
+//     </div>
+// )
+
+// let components = {
+//   // event: MyEvent, // used by each view (Month, Day, Week)
+//   toolbar: MyToolbar,
+// }
+
+
+
+const ColoredDateCellWrapper = ({children, value}) =>{
+
+  console.log(children, value)
+	return React.cloneElement(Children.only(children), {
+		style: {
+			...children.style,
+		},
+	});
+}
+const styles={
+
+}
 
 export default function AllEvents(props){
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState('');
   const [start, setStart] = React.useState();
   const [end, setEnd] = React.useState();
-  const [link, setLink] = React.useState('');
-  const [data, setEvent] = React.useState(events);
-
-  useEffect(() => {
-    async function fetchMyEvents() {
-      let headers = { 
-                      'Content-Type': 'application/json',
-                      'Authorization': 'Bearer '+ localStorage.getItem('authorization')
-                    }
-      let response = await fetch(`${process.env.REACT_APP_URL}/event`,{headers})
-      response = await response.json()
-      response.forEach(event => {
-        event.startDate = new Date(event["startDate"])
-        event.endDate = new Date(event["endDate"])
-      })
-      setEvent([...data,...response]) 
-      console.log(response)
-    }
-
-
-    fetchMyEvents()
-  }, [])
 
 
   const onSelect = (event) =>{
-    console.log(event)
-    setTitle(event.name)
-    setLink(event.link)
+    setTitle(event.title)
     setStart(moment(event.start).format("DD MMMM YYYY, hh:mm A"));
     setEnd(moment(event.end).format("DD MMMM YYYY, hh:mm A"))
     setOpen(true);
@@ -56,20 +59,22 @@ export default function AllEvents(props){
     setTitle('')
     setStart('');
     setEnd('')
-    setLink('');
     setOpen(false);
   };
 
   return(
-  <div >
+  <div styles ={{styles}}>
     <Calendar
       localizer={localizer}
-      events={data}
-      startAccessor="startDate"
-      endAccessor="endDate"
-      style={{ height:'75vh', width:'75vw' , margin:'4vh auto' }}
+      events={events}
+      startAccessor="start"
+      endAccessor="end"
+      style={{ height:'75vh', width:'75vw' , margin:'5vh auto' }}
       views={['month']}
-      titleAccessor='name'
+      titleAccessor='title'
+      // components={{
+			// 	dateCellWrapper: ColoredDateCellWrapper,
+			// }}
       onSelectEvent={onSelect}
       popup
       selectable
@@ -89,8 +94,8 @@ export default function AllEvents(props){
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=> window.open(`https://${link}`, "_blank")} color="primary">
-            Join Now
+          <Button onClick={()=> window.open("someLink", "_blank")} color="primary">
+            Join
           </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
             Close
@@ -100,3 +105,5 @@ export default function AllEvents(props){
   </div>
 );
 }
+
+//resource , onselect slot, onselect event , ondoubleclick event ,selcectable ,eventPropGetter, slotPropGetter , components

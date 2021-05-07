@@ -5,7 +5,6 @@ import './index.css';
 import "./App.css";
 
 import Login from './components/Login/Login';
-// import ChatBody from "./components/chatBody/ChatBody";
 import ChatBody from "./components/messenger/Messenger";
 import Header from './components/Header/Header'
 import AllEvents from './components/TimeTable/AllEvents'
