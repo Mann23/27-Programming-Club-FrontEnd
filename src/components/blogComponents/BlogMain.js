@@ -16,6 +16,7 @@ axios.interceptors.request.use(
 
 export default function BlogMain() {
     const [blogs, setBlogs] = useState([]);
+    const [deleted, setDeleted] = useState(null);
 
     let userid = localStorage.getItem("UserID");
 
@@ -34,6 +35,16 @@ export default function BlogMain() {
                 console.log(err);
             });
     }, []);
+    useEffect(() => {
+
+        if(deleted)
+          {
+                
+          setBlogs(blogs.filter(function( obj ) {
+            return obj.id !== deleted;
+            }))
+        }
+    },[deleted])
 
     return (
         <div className="App">
@@ -47,6 +58,7 @@ export default function BlogMain() {
                     return (
                         <Grid key={index} item xl={12}>
                             <BlogCard
+                                setDeleted={setDeleted}
                                 key={value.id}
                                 titleBlog={value.title}
                                 abstractBlog={value.Abstraction}

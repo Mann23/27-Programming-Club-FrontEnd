@@ -67,8 +67,8 @@ export default function BlogCard(prop) {
             .then((res) => {
                 console.log(res);
                 console.log("inside reponce promise");
-                // setBlogs(res.data);
-                window.location.reload(false);
+                prop.setDeleted(prop.blogId)
+                // window.location.reload(false);
             })
             .catch((err) => {
                 console.log(err);
