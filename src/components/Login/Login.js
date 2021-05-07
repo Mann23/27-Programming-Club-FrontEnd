@@ -23,14 +23,13 @@ const Login = () => {
     console.log(error)
   }
 
-
 	return (
     <div className='Login'>
       <h1 className = 'Login__Lable'>Programming : Programming club</h1>
 
     <GoogleLogin 
     className = 'Login__Google'
-    clientId="737901721241-gn29uqtr305vr05cu2eaq3t0h8i71h9m.apps.googleusercontent.com"
+    clientId={`${process.env.REACT_APP_API}`}
     buttonText="Login"
     onSuccess={responseGoogle}
     onFailure={errorGoogle}
