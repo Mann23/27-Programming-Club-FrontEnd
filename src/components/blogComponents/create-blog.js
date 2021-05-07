@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./create-blog.css";
+import history from '../../history'
 axios.interceptors.request.use(
     (config) => {
       config.headers.authorization = `Bearer ${localStorage.getItem('accessToken')}`;
@@ -19,8 +20,9 @@ export default function CreateBlog() {
         contentOfBlog: "",
     });
 
-    const mySubmitHandler = () => {
-        console.log('You are submitting "' + blog.titleOfBlog + '" ');
+    const mySubmitHandler = (e) => {
+        e.preventDefault();
+        alert('You are submitting "' + blog.titleOfBlog + '" ');
 
         let body ={ 
             title: blog.titleOfBlog,
@@ -28,11 +30,15 @@ export default function CreateBlog() {
             blog: blog.contentOfBlog,
             username:localStorage.getItem('UserID')
         }
+        console.log(blog)
         axios
             .post(`${process.env.REACT_APP_URL}/blog/createblog`, body)
             .then(function (response) {
                 console.log("inside reponce promise");
                 console.log(response);
+                setBlog({})
+                history.push('/')                
+                window.location.reload(false);
             })
             .catch((err) => {
                 console.log(err);
@@ -98,7 +104,7 @@ export default function CreateBlog() {
                 </div>
 
                 <div className="row">
-                    <input type="submit" value="SUBMIT" />
+                    <input type="submit"  value="SUBMIT" />
                 </div>
             </form>
         </div>
