@@ -1,5 +1,4 @@
-import React, {Children} from 'react';
-// import 'react-big-calendar/lib/css/react-big-calendar.css';
+import React, { useEffect} from 'react';
 import './AllEvents.css';
 import events from '../../data/events';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -13,42 +12,40 @@ import Button from '@material-ui/core/Button';
 import moment from 'moment'
 
 const localizer = momentLocalizer(moment)
-const CURRENT_DATE = moment().toDate();
-// let MyToolbar =() => (
-//     <div>
-//         <p>hello</p>
-//     </div>
-// )
-
-// let components = {
-//   // event: MyEvent, // used by each view (Month, Day, Week)
-//   toolbar: MyToolbar,
-// }
-
-
-
-const ColoredDateCellWrapper = ({children, value}) =>{
-
-  console.log(children, value)
-	return React.cloneElement(Children.only(children), {
-		style: {
-			...children.style,
-		},
-	});
-}
-const styles={
-
-}
 
 export default function AllEvents(props){
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState('');
   const [start, setStart] = React.useState();
   const [end, setEnd] = React.useState();
+  const [link, setLink] = React.useState('');
+  const [data, setEvent] = React.useState(events);
+
+  useEffect(() => {
+    async function fetchMyEvents() {
+      let headers = { 
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer '+ localStorage.getItem('authorization')
+                    }
+      let response = await fetch('http://localhost:4000/event',{headers})
+      response = await response.json()
+      response.forEach(event => {
+        event.startDate = new Date(event["startDate"])
+        event.endDate = new Date(event["endDate"])
+      })
+      setEvent([...data,...response]) 
+      console.log(response)
+    }
+
+
+    fetchMyEvents()
+  }, [])
 
 
   const onSelect = (event) =>{
-    setTitle(event.title)
+    console.log(event)
+    setTitle(event.name)
+    setLink(event.link)
     setStart(moment(event.start).format("DD MMMM YYYY, hh:mm A"));
     setEnd(moment(event.end).format("DD MMMM YYYY, hh:mm A"))
     setOpen(true);
@@ -59,22 +56,20 @@ export default function AllEvents(props){
     setTitle('')
     setStart('');
     setEnd('')
+    setLink('');
     setOpen(false);
   };
 
   return(
-  <div styles ={{styles}}>
+  <div >
     <Calendar
       localizer={localizer}
-      events={events}
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height:'75vh', width:'75vw' , margin:'5vh auto' }}
+      events={data}
+      startAccessor="startDate"
+      endAccessor="endDate"
+      style={{ height:'75vh', width:'75vw' , margin:'4vh auto' }}
       views={['month']}
-      titleAccessor='title'
-      // components={{
-			// 	dateCellWrapper: ColoredDateCellWrapper,
-			// }}
+      titleAccessor='name'
       onSelectEvent={onSelect}
       popup
       selectable
@@ -94,7 +89,7 @@ export default function AllEvents(props){
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=> window.open("someLink", "_blank")} color="primary">
+          <Button onClick={()=> window.open(`https://${link}`, "_blank")} color="primary">
             Join Now
           </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
@@ -105,4 +100,3 @@ export default function AllEvents(props){
   </div>
 );
 }
-//resource , onselect slot, onselect event , ondoubleclick event ,selcectable ,eventPropGetter, slotPropGetter , components

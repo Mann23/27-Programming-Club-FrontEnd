@@ -1,6 +1,7 @@
 import React, { Component, createRef } from "react";
 import "./chatContent.css";
 import ChatItem from "./ChatItem";
+import axios from 'axios'
 
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
@@ -60,6 +61,8 @@ export default class ChatContent extends Component {
       this.setState({ chat: [...this.chatItms] });
       this.scrollToBottom();
       this.setState({ msg: "" });
+
+      axios.post()
     }
   }
 
@@ -68,12 +71,11 @@ export default class ChatContent extends Component {
       <div className="main__chatcontent">
         <div className="content__header">
           <div className="blocks">
-            <div className="current-chatting-user">
-              <p>{localStorage.getItem("ClickedID")}</p>
+            <div className="current-chatting-user" >
+              <p>{this.props.ID}</p>
             </div>
           </div>
         </div>
-
         <div className="content__body">
           <div className="chat__items">
             {this.state.chat.map((itm) => {
@@ -102,6 +104,6 @@ export default class ChatContent extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

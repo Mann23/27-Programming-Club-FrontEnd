@@ -1,28 +1,43 @@
-import react, { Componet } from 'react'
 import GoogleLogin from 'react-google-login'
 import './Login.css'
-
-
-
+import axios from 'axios';
+import history from '../../history'
 const Login = () => {
-  const responseGoogle = (Response) => {console.log(Response);
-    console.log(Response.profileobj);}
-	return (
-    <div className='style'>
-      <h1 className = 'Daksh'>Programming : Programming club</h1>
+  const responseGoogle = (Response) => {
+   console.log(Response,"Response")
+    axios.post("http://localhost:4000/signIn", {
+      email: Response.profileObj.email,
+      username: Response.profileObj.name,
+    }).then(res => {
+      console.log("Received",res)
+      localStorage.setItem("UserID",Response.profileObj.name.replace(/\s/g, ""))
+      localStorage.setItem('accessToken', res.data.accessToken)   
+      history.push('/');
+      window.location.reload(false);
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 
-      <input type="email" name="email" placeholder="Email" />
-   
-      <input type="password" name="Password" placeholder="Password" />
+  const errorGoogle = (error) => {
+    console.log(error)
+  }
+
+
+	return (
+    <div className='Login'>
+      <h1 className = 'Login__Lable'>Programming : Programming club</h1>
 
     <GoogleLogin 
-    className = 'Chirag'
+    className = 'Login__Google'
     clientId="737901721241-gn29uqtr305vr05cu2eaq3t0h8i71h9m.apps.googleusercontent.com"
     buttonText="Login"
     onSuccess={responseGoogle}
-    onFailure={responseGoogle}
+    onFailure={errorGoogle}
     cookiePolicy={'single_host_origin'}
     />
+    <br></br>  <br></br>
+    <p className='fontstyle'> <b>*Kindly use Daiict G-suite Account only*</b></p>
  </div>
 	)
 }

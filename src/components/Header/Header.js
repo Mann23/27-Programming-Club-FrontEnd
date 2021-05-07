@@ -1,9 +1,3 @@
-// https://medium.com/@tsubasakondo_36683/create-responsive-drawer-menu-with-react-material-ui-617a42764b69
-
-// https://medium.com/@habibmahbub/create-appbar-material-ui-responsive-like-bootstrap-1a65e8286d6f
-// https://betterprogramming.pub/making-a-basic-header-responsive-with-materialui-and-react-2198fac923c8
-
-// https://codesandbox.io/s/recursing-pascal-vr0un?file=/src/Header.jsx:1439-1491
 import {
   AppBar,
   Toolbar,
@@ -18,33 +12,12 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
-
-const headersData = [
-  {
-    label: "Create Blog",
-    href: "/blog",
-  },
-  {
-    label: "Blogs",
-    href: "/blog",
-  },
-  {
-    label: "Events",
-    href: "/events",
-  },
-  {
-    label: "Chat",
-    href: "/chat",
-  },
-  {
-    label: "Log Out",
-    href: "/logout",
-  }
-];
+import axios from "axios"
+import history from '../../history'
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    backgroundColor: "#400CCC",
+    backgroundColor: "primary", 
     paddingRight: "79px",
     paddingLeft: "118px",
     "@media (max-width: 900px)": {
@@ -54,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     fontFamily: "Work Sans, sans-serif",
     fontWeight: 600,
-    color: "#FFFEFE",
+    color: "secondary",
     textAlign: "left",
   },
   menuButton: {
@@ -82,25 +55,87 @@ export default function Header() {
     drawerOpen: false,
   });
 
+  const [headersData, changeHeader] = useState([
+    {
+      label: "Create Blog",
+      href: "/create-blog",
+    },
+    {
+      label: "Blogs",
+      href: "/",
+    },
+    {
+      label: "Events",
+      href: "/events",
+    },
+    {
+      label: "Chat",
+      href: "/chat",
+    }
+  ])
+
   const { mobileView, drawerOpen } = state;
 
   useEffect(() => {
-    const setResponsiveness = () => {
-      return window.innerWidth < 900
-        ? setState((prevState) => ({ ...prevState, mobileView: true }))
-        : setState((prevState) => ({ ...prevState, mobileView: false }));
-    };
+        axios
+            .get("http://localhost:4000/core",
+            {
+                headers:{
+                    "Authorization":"Bearer "+localStorage.getItem('accessToken')
+                }
+            })
+            .then((res) => {
+                
+                res =res.data.map(member=> {
+                 return { UserID:member.email.split("@")[0]}
+                })
+                const UserID=localStorage.getItem('UserID')
 
-    setResponsiveness();
+                for(let i=0;i<res.length;i++) {
+                  if(UserID == res[i].UserID)
+                    changeHeader([...headersData,{  label: "Add Event",href: "/create-event",}])
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
+
+
+            const setResponsiveness = () => {
+              return window.innerWidth < 900
+                ? setState((prevState) => ({ ...prevState, mobileView: true }))
+                : setState((prevState) => ({ ...prevState, mobileView: false }));
+            };
+        
+            setResponsiveness();
     window.addEventListener("resize", () => setResponsiveness());
   }, []);
+
+
+  const logout = () => {
+    localStorage.removeItem("UserID")
+    
+    localStorage.removeItem("accessToken")
+    history.push('/'); 
+    window.location.reload(false)
+  }
+
 
   const displayDesktop = () => {
     return (
       <Toolbar className={toolbar}>
         {Name}
-        <div>{getMenuButtons()}</div>
+        <div>{getMenuButtons()}<Button
+          {...{
+            color: "inherit",
+            component: RouterLink,
+            className: menuButton,
+          }}
+          onClick={logout}
+        >
+          {"LogOut"}
+        </Button></div>
       </Toolbar>
     );
   };
@@ -132,7 +167,7 @@ export default function Header() {
             onClose: handleDrawerClose,
           }}
         >
-          <div className={drawerContainer}>{getDrawerChoices()}</div>
+          <div className={drawerContainer}>{getDrawerChoices()}<MenuItem onClick={logout}>{"LogOut"}</MenuItem></div>
         </Drawer>
 
         <div>{Name}</div>
@@ -141,6 +176,7 @@ export default function Header() {
   };
 
   const getDrawerChoices = () => {
+    console.log(headersData)
     return headersData.map(({ label, href }) => {
       return (
         <Link

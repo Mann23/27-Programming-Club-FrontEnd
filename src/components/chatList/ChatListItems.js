@@ -13,16 +13,19 @@ export default class ChatListItems extends Component {
       e.currentTarget.parentNode.children[index].classList.remove("active");
     }
     e.currentTarget.classList.add("active");
+
+    this.props.changeId(this.props.UserID)
     localStorage.setItem('ClickedID',this.props.UserID);
   };
 
   render() {
+
+    console.log(this.props);
+
     return (
       <div
         onClick={this.selectChat}
-        className={`chatlist__item ${
-          this.props.active ? this.props.active : ""
-        } `}
+        className={`chatlist__item`}
       >
   
         <div className="userMeta">

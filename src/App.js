@@ -1,56 +1,62 @@
-import React, { lazy, Suspense } from 'react'
+import { Route,Switch} from 'react-router-dom'
+import React from 'react'
+import {Grid, makeStyles} from "@material-ui/core"
+import './index.css';
 import "./App.css";
-import ChatBody from "./components/chatBody/ChatBody";
+
+import Login from './components/Login/Login';
+import ChatBody from "./components/messenger/Messenger";
 import Header from './components/Header/Header'
 import AllEvents from './components/TimeTable/AllEvents'
-import Login from './components/Login/Login';
-import AllEventsTrial from './components/TimeTable/AllEventsTrial'
+import CreateEvent from './components/CreateEvent/CreateEvent'
+import CreateBlog from "./components/blogComponents/create-blog.js";
+import ViewBlog from "./components/blogComponents/view-blog.js";
+import EditBlog from "./components/blogComponents/edit-blog.js";
+import BlogMain from './components/blogComponents/BlogMain';
 
-import { BrowserRouter as Router,Route ,Switch} from 'react-router-dom'
-import {Grid, makeStyles} from "@material-ui/core"
-// https://www.freecodecamp.org/news/react-router-tutorial/#:~:text=To%20add%20the%20link%20in,link%20if%20it%20is%20active.
 const useStyles = makeStyles((theme) => ({
   toolbarUncover: theme.mixins.toolbar,
 }));
 
-localStorage.setItem('UserID',201801454);
-
-function App() {
-  const {toolbarUncover} = useStyles();
+const App = ()=> {
+  const { toolbarUncover } = useStyles();
+  
   return (
-
-  <div>
-    <Router>
-      <Grid container direction={"column"}>
-        <Grid item xs={12} spacing={10}>
-          <Header/>
-          <div className={toolbarUncover} />
-        </Grid>
-        <Grid item xs={12}>
-          <Switch>  
-            <Route path="/events">
-              <AllEvents />
-            </Route>
+  <div>  
+      <Grid container direction={"column"} spacing={10}>
+        {
+            localStorage.getItem('UserID') &&
+            <Grid item xs={12} >
+              <Header/>
+              <div className={toolbarUncover} />
+            </Grid>
+        }
+        <Grid item xs={12}>  
+          <Switch> 
             
-            <Route path="/login">
-              <Login />
-            </Route>
+            { localStorage.getItem('UserID') ? ( 
+              <>
+            <Route  path="/events" component={AllEvents} exact/>
             <Route path="/chat">
               <div className="__main">
                 <ChatBody />
               </div>
             </Route>
-            <Route path="/">
-            </Route>
-
+            <Route path="/view-blog/:id" component={ViewBlog} exact/>
+            <Route path="/create-blog" component={CreateBlog} exact/>
+            <Route path="/edit-blog/:id" component={EditBlog} exact/>
+            <Route path="/create-event" component={CreateEvent} exact/>
+            <Route path="/" component={BlogMain} exact/>              
+            </>
+            ): (<>
+              <Route  path="/" component={Login} exact/>
+            </>)}
           </Switch>
         </Grid>
       </Grid>
-    </Router>
-
-
   </div>
   );
+
 }
 
 export default App;
