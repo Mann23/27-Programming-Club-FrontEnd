@@ -17,7 +17,8 @@ axios.interceptors.request.use(
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([]);  
+  const [sender, setSender] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const scrollRef = useRef();
 
@@ -58,7 +59,18 @@ export default function Messenger() {
       }
     };
 
-
+    if(currentChat)
+     {
+      const getSender = async () => {
+        try {
+          const res = await axios.get(`${process.env.REACT_APP_URL}/users/${currentChat.anotherUser}` );
+          setSender(res.data.username);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getSender()
+     } 
     if(currentChat)
      {
       getMessages();
