@@ -38,7 +38,7 @@ const deleteComment =(clickedId)=>{
    console.log(clickedId,"events")
 
    axios
-        .delete("http://localhost:4000/comment/"+clickedId)
+        .delete(`${process.env.REACT_APP_URL}/comment/`+clickedId)
         .then((res) => {
             console.log(res);
             console.log("inside reponce promise");

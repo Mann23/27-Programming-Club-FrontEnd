@@ -25,7 +25,7 @@ const ViewBlog = (prop) => {
         const edit_blog_id = prop.match.params.id;
         console.log("edit_blog_id",edit_blog_id);
         axios
-            .get("http://localhost:4000/blog/viewblog/"+ edit_blog_id)
+            .get(`${process.env.REACT_APP_URL}/blog/viewblog/`+ edit_blog_id)
             .then((res) => {
                 console.log(res);
                 setBlog({

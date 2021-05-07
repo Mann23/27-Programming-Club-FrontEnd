@@ -25,7 +25,7 @@ export default function BlogMain() {
 
         console.log("fetch blogs");
         axios
-            .get("http://localhost:4000/blog/viewblog")
+            .get(`${process.env.REACT_APP_URL}/blog/viewblog`)
             .then((res) => {
                 console.log(res);
                 setBlogs(res.data);

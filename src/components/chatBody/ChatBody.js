@@ -21,7 +21,7 @@ const ChatBody = () => {
   const [clickedId,setClickedId] = useState("")
 
   useEffect(() => {
-   axios.post("http://localhost:4000/chat/getFriendsChat",{email:"201801035@daiict.ac.in"}).then((res)=>{
+   axios.post(`${process.env.REACT_APP_URL}/chat/getFriendsChat`,{email:"201801035@daiict.ac.in"}).then((res)=>{
      console.log(res)
    })
   }, [])

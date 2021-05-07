@@ -40,7 +40,7 @@ const Comments = (props)=> {
       
     useEffect(() => {
       async function fetchComments() {
-        await axios.get("http://localhost:4000/comment/"+props.BlogId).then((res)=>{
+        await axios.get(`${process.env.REACT_APP_URL}/comment/`+props.BlogId).then((res)=>{
             console.log(res)
             let commentList = res.data.comments;
             console.log(commentList)

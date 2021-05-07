@@ -29,7 +29,7 @@ export default function CreateBlog() {
             username:localStorage.getItem('UserID')
         }
         axios
-            .post("http://localhost:4000/blog/createblog", body)
+            .post(`${process.env.REACT_APP_URL}/blog/createblog`, body)
             .then(function (response) {
                 console.log("inside reponce promise");
                 console.log(response);

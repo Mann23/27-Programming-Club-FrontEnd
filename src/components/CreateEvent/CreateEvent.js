@@ -116,7 +116,7 @@ class CreateEvent extends Component {
         console.log(body);
 
         axios
-        .post("http://localhost:4000/event/insert", body)
+        .post(`${process.env.REACT_APP_URL}/event/insert`, body)
         .then(function (response) {
             console.log("inside reponce promise");
             console.log(response);

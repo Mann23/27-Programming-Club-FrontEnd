@@ -27,7 +27,7 @@ function AddComment(props) {
    console.log(props.comments)
    const resetAndSubmit =() => {
         props.setComments([...props.comments,comment])
-      axios.post("http://localhost:4000/comment/", {
+      axios.post(`${process.env.REACT_APP_URL}/comment/`, {
                 commentText:comment,
                 blogId:params.id
             })

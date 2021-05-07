@@ -17,7 +17,7 @@ export default function Conversation({ conversation, anotherUser }) {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/users/" + anotherUser);
+        const res = await axios.get(`${process.env.REACT_APP_URL}/users/` + anotherUser);
         console.log(res.data.username)
         await setUser(res.data.username);
       } catch (err) {

@@ -78,7 +78,7 @@ export default function Header() {
 
   useEffect(() => {
         axios
-            .get("http://localhost:4000/core",
+            .get(`${process.env.REACT_APP_URL}/core`,
             {
                 headers:{
                     "Authorization":"Bearer "+localStorage.getItem('accessToken')

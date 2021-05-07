@@ -63,7 +63,7 @@ export default function BlogCard(prop) {
         console.log("delete button pressed...");
 
         axios
-            .delete("http://localhost:4000/blog/deleteblog/" + prop.blogId)
+            .delete(`${process.env.REACT_APP_URL}/blog/deleteblog/` + prop.blogId)
             .then((res) => {
                 console.log(res);
                 console.log("inside reponce promise");

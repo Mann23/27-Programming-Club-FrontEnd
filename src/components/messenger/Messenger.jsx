@@ -28,7 +28,7 @@ export default function Messenger() {
     const getConversations = async () => {
       console.log("getC")
       try {
-        let res = await axios.get("http://localhost:4000/chat/getConversation");
+        let res = await axios.get(`${process.env.REACT_APP_URL}/chat/getConversation`);
         console.log(res)
         let mapped = await res.data.map(
           (object) => {
@@ -60,7 +60,7 @@ export default function Messenger() {
     const getMessages = async () => {
       console.log("getM",currentChat?._id)
       try {
-        const res = await axios.get("http://localhost:4000/chat/message/" + currentChat._id);
+        const res = await axios.get(`${process.env.REACT_APP_URL}/chat/message/` + currentChat._id);
         setMessages(res.data);
       } catch (err) {
         console.log(err);
@@ -69,7 +69,7 @@ export default function Messenger() {
 
     const getSender = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/users/" + currentChat.anotherUser);
+        const res = await axios.get(`${process.env.REACT_APP_URL}/users/` + currentChat.anotherUser);
         setSender(res.data.username);
       } catch (err) {
         console.log(err);
@@ -88,7 +88,7 @@ let repeat =  setInterval(
     {
       if(currentChat && messages.length>0)
       {        
-        const res = await axios.get("http://localhost:4000/chat/message/" + currentChat._id);
+        const res = await axios.get(`${process.env.REACT_APP_URL}/chat/message/` + currentChat._id);
 
         if(res.data.length>messages.length)
         {
@@ -123,7 +123,7 @@ let repeat =  setInterval(
     };
 
     try {
-      const res = await axios.post("http://localhost:4000/chat/addMessage", message);
+      const res = await axios.post(`${process.env.REACT_APP_URL}/chat/addMessage`, message);
       setMessages([...messages, res.data]);
       // console.log("km che bhai",messages,res.data)
       setNewMessage("");

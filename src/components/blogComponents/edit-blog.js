@@ -27,7 +27,7 @@ export default function EditBlog(prop) {
         console.log("propseditblog>>",prop)
         const edit_blog_id = prop.match.params.id;
         console.log("edit_blog_id",edit_blog_id);
-        axios.get("http://localhost:4000/blog/viewblog/"+ edit_blog_id)
+        axios.get(`${process.env.REACT_APP_URL}/blog/viewblog/`+ edit_blog_id)
             .then((res) => {
                 console.log(res);
                 setBlog({
@@ -47,7 +47,7 @@ export default function EditBlog(prop) {
         
 
          axios
-            .put("http://localhost:4000/blog/updateblog/"+prop.match.params.id, {
+            .put(`${process.env.REACT_APP_URL}/blog/updateblog/`+prop.match.params.id, {
                 title: blog.titleOfBlog,
                 abstraction:blog.abstractOfBlog,
                 blog: blog.contentOfBlog,
