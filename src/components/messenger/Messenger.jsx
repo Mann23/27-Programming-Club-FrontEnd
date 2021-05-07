@@ -122,9 +122,9 @@ let repeat =  setInterval(
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             {
-                conversations.map((c) => (
-                <div onClick={() => setCurrentChat(c)}>
-                  <Conversation conversation={c} anotherUser={c.anotherUser} />
+                conversations.map((c,i) => (
+                <div key={i} onClick={() => setCurrentChat(c)}>
+                  <Conversation  conversation={c} anotherUser={c.anotherUser} />
                 </div>
               ))}
           </div>
@@ -134,8 +134,8 @@ let repeat =  setInterval(
             {currentChat ? (
               <>
                 <div className="chatBoxTop">
-                  {messages.map((m) => (
-                    <div ref={scrollRef}>
+                  {messages.map((m,i) => (
+                    <div key={i} ref={scrollRef}>
                       <Message message={m} own={m.sender !== currentChat.anotherUser} />
 
                       {console.log(m.sender,currentChat.anotherUser)}

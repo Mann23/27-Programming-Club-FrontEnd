@@ -45,7 +45,7 @@ export default function BlogMain() {
             >
                 {blogs.map((value, index) => {
                     return (
-                        <Grid item xl={12}>
+                        <Grid key={index} item xl={12}>
                             <BlogCard
                                 key={value.id}
                                 titleBlog={value.title}

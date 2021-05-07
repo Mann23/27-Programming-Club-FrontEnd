@@ -92,7 +92,7 @@ export default function EditBlog(prop) {
                             name="titleOfBlog"
                             value={blog.titleOfBlog}
                             onChange={myChangeHandler}
-                            autocomplete="off"
+                            autoComplete="off"
                         />
                     </div>
                 </div>
@@ -121,7 +121,7 @@ export default function EditBlog(prop) {
                             value={blog.contentOfBlog}
                             onChange={myChangeHandler}
                             style={{ height: "300px" }}
-                            autocomplete="off"
+                            autoComplete="off"
                         />
                     </div>
                 </div>
