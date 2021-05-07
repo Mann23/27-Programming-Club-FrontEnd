@@ -131,8 +131,10 @@ let repeat =  setInterval(
         </div>
         <div className="chatBox">
           <div className="chatBoxWrapper">
-            {currentChat ? (
+            {currentChat ? 
+              (
               <>
+                <h5>{sender}</h5>
                 <div className="chatBoxTop">
                   {messages.map((m,i) => (
                     <div key={i} ref={scrollRef}>
