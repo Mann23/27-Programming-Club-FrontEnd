@@ -89,10 +89,9 @@ export default function AllEvents(props){
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          
-            <Button onClick={()=> window.open(`https://${link}`, "_blank")} color="primary">
-              Join Now
-            </Button>
+          <Button onClick={()=> window.open(`https://${link}`, "_blank")} color="primary">
+            Join Now
+          </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
             Close
           </Button>

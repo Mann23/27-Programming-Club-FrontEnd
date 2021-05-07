@@ -18,7 +18,9 @@ export default function Messenger() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState();
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");  
+  const [newMessage, setNewMessage] = useState("");
+  const [sender, setSender] = useState(null);  
+
   const user = { username:localStorage.getItem('UserID')}
   const scrollRef = useRef();
 
@@ -51,14 +53,27 @@ export default function Messenger() {
         console.log(err);
       }
     };
+
+    const getSender = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/users/" + currentChat.anotherUser);
+        setSender(res.data.username);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     if(currentChat)
+     {
       getMessages();
+      getSender();
+     } 
   }, [currentChat]);
 
 let repeat =  setInterval(
     async function()
     {
-      console.log("why this")
+      // console.log("why this")
       if(currentChat && messages.length>0)
       {        
         const res = await axios.get("http://localhost:4000/chat/message/" + currentChat._id);
@@ -76,8 +91,8 @@ let repeat =  setInterval(
           const arrivalMessage= res.data.slice(i)
           
         setMessages([...messages, ...arrivalMessage]);
-        console.log(res.data.length,messages.length,last,arrivalMessage)
-        console.log("messages",messages)
+        // console.log(res.data.length,messages.length,last,arrivalMessage)
+        // console.log("messages",messages)
         }          
       }
     }
@@ -98,7 +113,7 @@ let repeat =  setInterval(
     try {
       const res = await axios.post("http://localhost:4000/chat/addMessage", message);
       setMessages([...messages, res.data]);
-      console.log("km che bhai",messages,res.data)
+      // console.log("km che bhai",messages,res.data)
       setNewMessage("");
     } catch (err) {
       console.log(err);
@@ -115,7 +130,6 @@ let repeat =  setInterval(
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
-            <input placeholder="Search for friends" className="chatMenuInput" />
             {
                 conversations.map((c) => (
                 <div onClick={() => setCurrentChat(c)}>
@@ -131,7 +145,7 @@ let repeat =  setInterval(
                 <div className="chatBoxTop">
                   {messages.map((m) => (
                     <div ref={scrollRef}>
-                      <Message message={m} own={m.sender === user._id} />
+                      <Message message={m} own={sender === user.username} />
                       {/* sender no username store karavi to thai jaai */}
                     </div>
                   ))}
