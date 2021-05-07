@@ -1,91 +1,104 @@
 import "./messenger.css";
 import Conversation from "../conversations/Conversation";
 import Message from "../message/Message";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { io } from "socket.io-client";
+
+axios.interceptors.request.use(
+  (config) => {
+    config.headers.authorization = `Bearer ${localStorage.getItem("accessToken")}`;
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
-  const [currentChat, setCurrentChat] = useState(null);
+  const [currentChat, setCurrentChat] = useState();
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [arrivalMessage, setArrivalMessage] = useState(null);
-  const socket = useRef();
-  const user = "Paresh" //localStorage.getUser('UserID')
+  const [newMessage, setNewMessage] = useState("");  
+  const user = { username:localStorage.getItem('UserID')}
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
-    socket.current.on("getMessage", (data) => {
-      setArrivalMessage({
-        sender: data.senderId,
-        text: data.text,
-        createdAt: Date.now(),
-      });
-    });
-  }, []);
-
-  useEffect(() => {
-    arrivalMessage &&
-      currentChat?.members.includes(arrivalMessage.sender) &&
-      setMessages((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage, currentChat]);
-
-//   useEffect(() => {
-//     socket.current.emit("addUser", user._id);
-//     socket.current.on("getUsers", (users) => {
-//       setOnlineUsers(
-//         user.followings.filter((f) => users.some((u) => u.userId === f))
-//       );
-//     });
-//   }, [user]);
-
-  useEffect(() => {
     const getConversations = async () => {
+      console.log("getC")
       try {
-        const res = await axios.get("/conversations/" + user._id);
+        const res = await axios.get("http://localhost:4000/chat/getConversation");
         setConversations(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getConversations();
-  }, [user._id]);
+  }, []);
+
+  useEffect(() => {
+    // console.log(conversations);
+    // console.log(messages);
+    console.log(currentChat);
+  }, [currentChat])
 
   useEffect(() => {
     const getMessages = async () => {
+      console.log("getM",currentChat?._id)
       try {
-        const res = await axios.get("/messages/" + currentChat?._id);
+        const res = await axios.get("http://localhost:4000/chat/message/" + currentChat._id);
         setMessages(res.data);
       } catch (err) {
         console.log(err);
       }
     };
-    getMessages();
+    if(currentChat)
+      getMessages();
   }, [currentChat]);
+
+let repeat =  setInterval(
+    async function()
+    {
+      console.log("why this")
+      if(currentChat && messages.length>0)
+      {        
+        const res = await axios.get("http://localhost:4000/chat/message/" + currentChat._id);
+
+        if(res.data.length>messages.length)
+        {
+          const last = messages[messages.length - 1].text
+          let i=res.data.length -1
+          for(; i>-1; i--)
+          {
+            if(res.data[i].text===last)
+              break;
+          }
+          i+=1
+          const arrivalMessage= res.data.slice(i)
+          
+        setMessages([...messages, ...arrivalMessage]);
+        console.log(res.data.length,messages.length,last,arrivalMessage)
+        console.log("messages",messages)
+        }          
+      }
+    }
+    , 5000);
+    useEffect(() => {
+      return function cleanup() {
+        clearInterval( repeat )
+      };
+    });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
-      sender: user._id,
       text: newMessage,
       conversationId: currentChat._id,
     };
 
-    const receiverId = currentChat.members.find(
-      (member) => member !== user._id
-    );
-
-    socket.current.emit("sendMessage", {
-      senderId: user._id,
-      receiverId,
-      text: newMessage,
-    });
-
     try {
-      const res = await axios.post("/messages", message);
+      const res = await axios.post("http://localhost:4000/chat/addMessage", message);
       setMessages([...messages, res.data]);
+      console.log("km che bhai",messages,res.data)
       setNewMessage("");
     } catch (err) {
       console.log(err);
@@ -96,17 +109,19 @@ export default function Messenger() {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  console.log(conversations)
   return (
     <>
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             <input placeholder="Search for friends" className="chatMenuInput" />
-            {conversations.map((c) => (
-              <div onClick={() => setCurrentChat(c)}>
-                <Conversation conversation={c} currentUser={user} />
-              </div>
-            ))}
+            {
+                conversations.map((c) => (
+                <div onClick={() => setCurrentChat(c)}>
+                  <Conversation conversation={c} anotherUser={c.anotherUser} />
+                </div>
+              ))}
           </div>
         </div>
         <div className="chatBox">
@@ -117,6 +132,7 @@ export default function Messenger() {
                   {messages.map((m) => (
                     <div ref={scrollRef}>
                       <Message message={m} own={m.sender === user._id} />
+                      {/* sender no username store karavi to thai jaai */}
                     </div>
                   ))}
                 </div>

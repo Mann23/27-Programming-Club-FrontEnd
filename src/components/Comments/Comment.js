@@ -1,5 +1,3 @@
-//header make using programming member 
-
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -52,7 +50,6 @@ const deleteComment =(clickedId)=>{
 
 }
 
-
 const Comment = ({ comments }) => {
   const classes = useStyles();
   return (
@@ -61,7 +58,6 @@ const Comment = ({ comments }) => {
     </List>
   );
 };
-
 
 const CommentRow = ({comment}) => {
   const classes = useStyles();
@@ -89,8 +85,6 @@ return (
           </>
         }
       />
-
-
       {
         localStorage.getItem("UserID") == comment.email.split("@")[0] &&  
         
@@ -99,8 +93,6 @@ return (
           </IconButton>
         
       }
-
-
     </ListItem>
     <Divider />
     

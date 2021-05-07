@@ -1,6 +1,6 @@
-import { BrowserRouter as Router,Route,Switch} from 'react-router-dom'
-import React, { lazy, Suspense } from 'react'
-import {Grid, makeStyles,Container, Typography} from "@material-ui/core"
+import { Route,Switch} from 'react-router-dom'
+import React from 'react'
+import {Grid, makeStyles} from "@material-ui/core"
 import './index.css';
 import "./App.css";
 
@@ -9,24 +9,19 @@ import Login from './components/Login/Login';
 import ChatBody from "./components/messenger/Messenger";
 import Header from './components/Header/Header'
 import AllEvents from './components/TimeTable/AllEvents'
-import CreateEvent from './components/CreateEvent'
+import CreateEvent from './components/CreateEvent/CreateEvent'
+import CreateBlog from "./components/blogComponents/create-blog.js";
+import ViewBlog from "./components/blogComponents/view-blog.js";
+import EditBlog from "./components/blogComponents/edit-blog.js";
+import BlogMain from './components/blogComponents/BlogMain';
 
-import CreateBlog from "./blogComponents/create-blog.js";
-import ViewBlog from "./blogComponents/view-blog.js";
-import EditBlog from "./blogComponents/edit-blog.js";
-import BlogMain from './blogComponents/BlogMain';
-
-import history from './history';
-
-
-// https://www.freecodecamp.org/news/react-router-tutorial/#:~:text=To%20add%20the%20link%20in,link%20if%20it%20is%20active.
 const useStyles = makeStyles((theme) => ({
   toolbarUncover: theme.mixins.toolbar,
 }));
 
 const App = ()=> {
   const { toolbarUncover } = useStyles();
-  // localStorage.setItem('UserID',"2081");
+  
   return (
   <div>  
       <Grid container direction={"column"} spacing={10}>

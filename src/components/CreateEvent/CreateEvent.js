@@ -6,15 +6,13 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { Button , makeStyles } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-//import DatePicker from 'react-datepicker';
 import DatePicker from './DatePicker'
 import TimePicker from './TimePicker'
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios"
-import { LensTwoTone } from '@material-ui/icons';
 
 axios.interceptors.request.use(
     (config) => {
@@ -28,16 +26,7 @@ axios.interceptors.request.use(
 
 
 const paperStyle={padding:'30px 20px', width:600, margin:"30px auto"}
-/*
-const useStyles = makeStyles(theme => ({
-    root: {
-        '& .MuiFormControl-root': {
-            width: '80%',
-            margin: theme.spacing(1)
-        }
-    }
-}))
-*/
+
 class CreateEvent extends Component {
 	constructor(props) {
 		super(props)
@@ -101,7 +90,6 @@ class CreateEvent extends Component {
         else{
             alert("Submitted")
         }
-        // console.log(this.state)
 
         let data= this.state
         console.log(data);
@@ -112,21 +100,12 @@ class CreateEvent extends Component {
         console.log(date,time);
         console.log(new Date(date+' '+time))
          let sDate = new Date(date+' '+time)
-        // JSON.stringify(data.startDate).split('T')[0] + 'T' +
-        // JSON.stringify(data.startTime).split('T')[1]
         let endDate = data.endDate
         let endTime = data.endTime
         date = endDate.getFullYear()+'-'+(endDate.getMonth()+1)+'-'+endDate.getDate();
         time = endTime.getHours() + ":" + endTime.getMinutes() + ":" + endTime.getSeconds();
 
          let eDate = new Date(date+' '+time)
-        //  JSON.stringify(data.endDate).split('T')[0] + 'T' +
-        // JSON.stringify(data.endTime).split('T')[1]
-
-        // console.log(eDate,sDate,typeof sDate)
-        // sDate = new Date(sDate)
-        // eDate = new Date(eDate)
-        // console.log(eDate,sDate,typeof sDate)
         const body = {
             name:data.title,
             isQuiz :data.eventType =='quiz'?true :false,
@@ -145,7 +124,6 @@ class CreateEvent extends Component {
         .catch((err) => {
             console.log(err);
         });
-        //this.resetForm()
 		
 	}
     onRadioChange = (e) => {
@@ -183,7 +161,7 @@ class CreateEvent extends Component {
         this.setState({endTime:item})
     }
 	render() {
-		const { title, eventType, googleLink, startDate,endDate, startTime, endTime} = this.state
+		const {  eventType } = this.state
 		return (
             <Grid>
 			<Paper elevation={20} style={paperStyle}>
@@ -194,7 +172,7 @@ class CreateEvent extends Component {
                         <h1 > Create Event</h1>
                     </Grid>
 
-			    <form  onSubmit={this.submitHandler} >  {/*className={useStyles.root}*/}
+			    <form  onSubmit={this.submitHandler} >  
                 <Grid align='left' >     
                     <Typography style={{color:'#757575'}}  variant="body1" gutterBottom >Event Title</Typography>                
 					<Grid >
@@ -259,8 +237,6 @@ class CreateEvent extends Component {
                         <Button  size="large" variant="contained" color="primary" onClick={ this.submitHandler} >Submit</Button>
                         <Button style={{marginLeft:20}} size="large" variant="contained" color="secondary" onClick={()=> window.location.reload(false) }  >Reset</Button>
                     </Grid>
-					{/*<button type="submit">Submit</button>
-                    <button type="reset" onClick={this.resetForm}>Reset</button>*/}
                 </Grid>
 				</form>
 			</Paper>

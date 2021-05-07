@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./edit-blog.css";
-import history from '../history';
+import history from '../../history';
 
 
 axios.interceptors.request.use(

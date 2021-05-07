@@ -14,7 +14,7 @@ axios.interceptors.request.use(
     }
   );
 
-export default function BlogMain(prop) {
+export default function BlogMain() {
     const [blogs, setBlogs] = useState([]);
 
     let userid = localStorage.getItem("UserID");

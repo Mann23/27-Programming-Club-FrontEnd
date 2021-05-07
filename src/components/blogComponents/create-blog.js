@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./create-blog.css";
 axios.interceptors.request.use(
@@ -19,14 +19,8 @@ export default function CreateBlog() {
         contentOfBlog: "",
     });
 
-    const mySubmitHandler = (event) => {
-        // event.preventDefault();
+    const mySubmitHandler = () => {
         console.log('You are submitting "' + blog.titleOfBlog + '" ');
-
-        let headers= {
-            "Content-Type": 'application/json',
-            "Authorization":"Bearer "+localStorage.getItem('accessToken')
-        }
 
         let body ={ 
             title: blog.titleOfBlog,

@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import "./view-blog.css";
 import axios from 'axios'
-import CommentsContainer from '../components/Comments/CommentsContainer'
+import CommentsContainer from '../Comments/CommentsContainer'
 
 axios.interceptors.request.use(
     (config) => {
@@ -71,4 +71,3 @@ const ViewBlog = (prop) => {
 }
 
 export default ViewBlog
-// import ViewBlog from './view-blog.js';

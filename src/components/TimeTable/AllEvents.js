@@ -1,6 +1,4 @@
-
-import React, {Children , useEffect} from 'react';
-// import 'react-big-calendar/lib/css/react-big-calendar.css';
+import React, { useEffect} from 'react';
 import './AllEvents.css';
 import events from '../../data/events';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -14,32 +12,6 @@ import Button from '@material-ui/core/Button';
 import moment from 'moment'
 
 const localizer = momentLocalizer(moment)
-const CURRENT_DATE = moment().toDate();
-// let MyToolbar =() => (
-//     <div>
-//         <p>hello</p>
-//     </div>
-// )
-
-// let components = {
-//   // event: MyEvent, // used by each view (Month, Day, Week)
-//   toolbar: MyToolbar,
-// }
-
-
-
-const ColoredDateCellWrapper = ({children, value}) =>{
-
-  console.log(children, value)
-	return React.cloneElement(Children.only(children), {
-		style: {
-			...children.style,
-		},
-	});
-}
-const styles={
-
-}
 
 export default function AllEvents(props){
   const [open, setOpen] = React.useState(false);
@@ -89,7 +61,7 @@ export default function AllEvents(props){
   };
 
   return(
-  <div styles ={{styles}}>
+  <div >
     <Calendar
       localizer={localizer}
       events={data}
@@ -98,9 +70,6 @@ export default function AllEvents(props){
       style={{ height:'75vh', width:'75vw' , margin:'4vh auto' }}
       views={['month']}
       titleAccessor='name'
-      // components={{
-			// 	dateCellWrapper: ColoredDateCellWrapper,
-			// }}
       onSelectEvent={onSelect}
       popup
       selectable
@@ -120,9 +89,10 @@ export default function AllEvents(props){
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=> window.open(`https://${link}`, "_blank")} color="primary">
-            Join Now
-          </Button>
+          
+            <Button onClick={()=> window.open(`https://${link}`, "_blank")} color="primary">
+              Join Now
+            </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
             Close
           </Button>
@@ -131,4 +101,3 @@ export default function AllEvents(props){
   </div>
 );
 }
-//resource , onselect slot, onselect event , ondoubleclick event ,selcectable ,eventPropGetter, slotPropGetter , components

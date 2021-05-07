@@ -1,9 +1,3 @@
-// https://medium.com/@tsubasakondo_36683/create-responsive-drawer-menu-with-react-material-ui-617a42764b69
-
-// https://medium.com/@habibmahbub/create-appbar-material-ui-responsive-like-bootstrap-1a65e8286d6f
-// https://betterprogramming.pub/making-a-basic-header-responsive-with-materialui-and-react-2198fac923c8
-
-// https://codesandbox.io/s/recursing-pascal-vr0un?file=/src/Header.jsx:1439-1491
 import {
   AppBar,
   Toolbar,
@@ -21,11 +15,9 @@ import { Link as RouterLink } from "react-router-dom";
 import axios from "axios"
 import history from '../../history'
 
-
-
 const useStyles = makeStyles((theme) => ({
   header: {
-    backgroundColor: "primary", //"#400CCC",
+    backgroundColor: "primary", 
     paddingRight: "79px",
     paddingLeft: "118px",
     "@media (max-width: 900px)": {
@@ -99,11 +91,9 @@ export default function Header() {
                 })
                 const UserID=localStorage.getItem('UserID')
 
-                console.log(res);
-                console.log(UserID);
                 for(let i=0;i<res.length;i++) {
                   if(UserID == res[i].UserID)
-                  changeHeader([...headersData,{  label: "Add Event",href: "/create-event",}])
+                    changeHeader([...headersData,{  label: "Add Event",href: "/create-event",}])
                 }
             })
             .catch((err) => {
@@ -211,7 +201,6 @@ export default function Header() {
   );
 
   const getMenuButtons = () => {
-    console.log(headersData)
     return headersData.map(({ label, href }) => {
       return (
         <Button

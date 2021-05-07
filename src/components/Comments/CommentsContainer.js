@@ -1,12 +1,9 @@
-import React, { Component ,useEffect } from "react";
+import React, {useEffect } from "react";
 import Comment from "./Comment";
 import './Comment.css';
 import AddComment from './AddComment'
 import axios from 'axios'
-
-import {Grid, makeStyles,Container, Typography} from "@material-ui/core"
-
-
+import {Grid,Container, Typography} from "@material-ui/core"
 
 axios.interceptors.request.use(
    (config) => {
@@ -18,15 +15,13 @@ axios.interceptors.request.use(
    }
  );
 
-
 function CommentsContainer(prop) {
    console.log(prop)
    const [comments, setComments] = React.useState([]);
    return (
       <Container>
          <Grid container justify="space-between" >
-            <Grid item xs={12}>
-            
+            <Grid item xs={12}>            
             <AddComment comments={comments}  setComments={setComments} />
             </Grid>
             <Grid item>
@@ -40,29 +35,18 @@ function CommentsContainer(prop) {
    )
 }
 
-
-
 const Comments = (props)=> {
    const [isFetching, setFetching] = React.useState(true);
       
     useEffect(() => {
       async function fetchComments() {
-         let headers = { 
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+ localStorage.getItem('authorization')
-          }
-
         await axios.get("http://localhost:4000/comment/"+props.BlogId).then((res)=>{
             console.log(res)
             let commentList = res.data.comments;
             console.log(commentList)
             props.setComments([...commentList]) 
             setFetching(false)
-         })
-         // response = await response.json()
-         // console.log("respodcjkbdshcbhjdsbcbnse",response)
-       
-          
+         })    
       }  
       fetchComments()
     }, [])

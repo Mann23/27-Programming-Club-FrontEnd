@@ -22,12 +22,12 @@
 {
   font-size: 18px;
   margin-left: 65px;
-  color: red;
+  color: rgba(255, 102, 0, 0.603);
 }
 
 .Login
 {
-  background-color: rgb(210, 214, 174);
+  background-color: rgb(213, 214, 199);
   width: 500px;
   margin: 150px auto 10px auto;
   padding: 30px;
